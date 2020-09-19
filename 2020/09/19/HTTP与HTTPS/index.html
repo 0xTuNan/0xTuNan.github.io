@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>HTTP与HTTPS | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HTTP为什么不安全在http传输协议中，数据全部是基于明文传递的，交互过程以及数据传输都没有进行加密，通信双方也没有进行任何认证，通信过程非常容易遭遇劫持、监听、篡改，严重情况下，会造成恶意的流量劫持等问题，甚至导致用户的账户，密码失窃。 http通信就像上课时两个很远的人传小纸条交流，此时在传输的过程中，会经过很多人的收，此时就有可能造成途中，纸条的信息被传递者发现，里面的任何内容（包括各">
+  <meta name="description" content="HTTP为什么不安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP与HTTPS">
 <meta property="og:url" content="http://yoursite.com/2020/09/19/HTTP%E4%B8%8EHTTPS/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
-<meta property="og:description" content="HTTP为什么不安全在http传输协议中，数据全部是基于明文传递的，交互过程以及数据传输都没有进行加密，通信双方也没有进行任何认证，通信过程非常容易遭遇劫持、监听、篡改，严重情况下，会造成恶意的流量劫持等问题，甚至导致用户的账户，密码失窃。 http通信就像上课时两个很远的人传小纸条交流，此时在传输的过程中，会经过很多人的收，此时就有可能造成途中，纸条的信息被传递者发现，里面的任何内容（包括各">
+<meta property="og:description" content="HTTP为什么不安全">
 <meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1givsjt1mhxj30xz06c0w7.jpg">
 <meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1givsk840mkj30fj0gv75r.jpg">
 <meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1givslf8vnwj30f209gabo.jpg">
 <meta property="article:published_time" content="2020-09-19T03:24:28.000Z">
-<meta property="article:modified_time" content="2020-09-19T03:59:56.647Z">
+<meta property="article:modified_time" content="2020-09-19T04:01:37.762Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1givsjt1mhxj30xz06c0w7.jpg">
@@ -171,9 +171,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
+        <h2 id="HTTP为什么不安全"><a href="#HTTP为什么不安全" class="headerlink" title="HTTP为什么不安全"></a>HTTP为什么不安全</h2><a id="more"></a>
 
-<h2 id="HTTP为什么不安全"><a href="#HTTP为什么不安全" class="headerlink" title="HTTP为什么不安全"></a>HTTP为什么不安全</h2><p>在http传输协议中，数据全部是基于明文传递的，交互过程以及数据传输都没有进行加密，通信双方也没有进行任何认证，通信过程非常容易遭遇劫持、监听、篡改，严重情况下，会造成恶意的流量劫持等问题，甚至导致用户的账户，密码失窃。</p>
+<p>在http传输协议中，数据全部是基于明文传递的，交互过程以及数据传输都没有进行加密，通信双方也没有进行任何认证，通信过程非常容易遭遇劫持、监听、篡改，严重情况下，会造成恶意的流量劫持等问题，甚至导致用户的账户，密码失窃。</p>
 <p>http通信就像上课时两个很远的人传小纸条交流，此时在传输的过程中，会经过很多人的收，此时就有可能造成途中，纸条的信息被传递者发现，里面的任何内容（包括各类账号和密码）都会被轻易窃取，因为纸条上的数据信息是明文传递的，都可以看的懂。而且在此期间，传输者甚至可以修改发送者的信息，导致双方都得到错误的信息。</p>
 <p>比如常见的，在http通信过程中的”中间人攻击”。造成流量劫持，用户密码被获取等等。</p>
 <h2 id="HTTPS如何保证安全"><a href="#HTTPS如何保证安全" class="headerlink" title="HTTPS如何保证安全"></a>HTTPS如何保证安全</h2><p>http最大的问题就是明文传输，导致信息容易泄露。那么安全的办法就是想办法让数据不可见，即使被抓取，仍然看不懂其中的信息即可。同时要保证交换信息的双方都是”真实的双方”，即需要校验彼此的身份。</p>
