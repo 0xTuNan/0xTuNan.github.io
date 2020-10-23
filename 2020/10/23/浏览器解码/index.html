@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>浏览器解码 | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浏览器的解码规则 HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树 javascript 或者 CSS解析器对内联脚本进行解析，完成JS CSS解码 URL解码会根据URL所在的顺序不同而在JS解码前或者解码后  浏览器最早开始解析HTML，将标签转化为内容树中的DOM 节点，此时识别标签的时候，HTML 解析器是无法识别哪些被实体编码的内容的，只有建立起DOM 树，才能对">
+  <meta name="description" content="浏览器的解码规则 HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器解码">
 <meta property="og:url" content="http://yoursite.com/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
-<meta property="og:description" content="浏览器的解码规则 HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树 javascript 或者 CSS解析器对内联脚本进行解析，完成JS CSS解码 URL解码会根据URL所在的顺序不同而在JS解码前或者解码后  浏览器最早开始解析HTML，将标签转化为内容树中的DOM 节点，此时识别标签的时候，HTML 解析器是无法识别哪些被实体编码的内容的，只有建立起DOM 树，才能对">
+<meta property="og:description" content="浏览器的解码规则 HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树">
 <meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gjz6qb24d0j30rs0iyqrp.jpg">
 <meta property="article:published_time" content="2020-10-23T05:01:12.000Z">
-<meta property="article:modified_time" content="2020-10-23T05:07:03.802Z">
+<meta property="article:modified_time" content="2020-10-23T05:08:30.948Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gjz6qb24d0j30rs0iyqrp.jpg">
@@ -169,12 +169,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-
-<h2 id="浏览器的解码规则"><a href="#浏览器的解码规则" class="headerlink" title="浏览器的解码规则"></a>浏览器的解码规则</h2><ul>
-<li>HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树</li>
-<li>javascript 或者 CSS解析器对内联脚本进行解析，完成JS CSS解码</li>
-<li>URL解码会根据URL所在的顺序不同而在JS解码前或者解码后</li>
+        <h2 id="浏览器的解码规则"><a href="#浏览器的解码规则" class="headerlink" title="浏览器的解码规则"></a>浏览器的解码规则</h2><ul>
+<li><p>HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树</p>
+<a id="more"></a>
+</li>
+<li><p>javascript 或者 CSS解析器对内联脚本进行解析，完成JS CSS解码</p>
+</li>
+<li><p>URL解码会根据URL所在的顺序不同而在JS解码前或者解码后</p>
+</li>
 </ul>
 <p>浏览器最早开始解析HTML，将标签转化为内容树中的DOM 节点，此时识别标签的时候，HTML 解析器是无法识别哪些被实体编码的内容的，只有建立起DOM 树，才能对每个节点的内容进行识别，如果出现实体编码，则会进行实体解码。在此基础上，JavaScript DOM API 参与进来，可以对DOM 树进行修改，改变DOM树的结构和内容。而此时，CSS解析器则解析外部CSS 文件以及Style 标签中的样式内容</p>
 <h2 id="编码与解码的顺序"><a href="#编码与解码的顺序" class="headerlink" title="编码与解码的顺序"></a>编码与解码的顺序</h2><h3 id="url解析"><a href="#url解析" class="headerlink" title="url解析"></a>url解析</h3><p>在之前的解析之中，浏览器会先解析HTML，但是如何获取HTML等这些资源呢，还是先需要url来获取到资源的。</p>
