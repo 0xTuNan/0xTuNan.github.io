@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/9 | TuNan&#39;s Blogs</title>
+  <title>HTTP与HTTPS | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/2020/09/index.html">
+  <meta name="description" content="HTTP为什么不安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP与HTTPS">
+<meta property="og:url" content="http://yoursite.com/2020/09/19/HTTP%E4%B8%8EHTTPS/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="HTTP为什么不安全">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1givsjt1mhxj30xz06c0w7.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1givsk840mkj30fj0gv75r.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1givslf8vnwj30f209gabo.jpg">
+<meta property="article:published_time" content="2020-09-19T03:24:28.000Z">
+<meta property="article:modified_time" content="2020-12-08T01:50:30.255Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1givsjt1mhxj30xz06c0w7.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -143,103 +151,260 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-HTTP与HTTPS" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      HTTP与HTTPS
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
+
+        
+        <a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
   	<time datetime="2020-09-19T03:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">HTTP与HTTPS</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HTTP为什么不安全"><a href="#HTTP为什么不安全" class="headerlink" title="HTTP为什么不安全"></a>HTTP为什么不安全</h2><a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>在http传输协议中，数据全部是基于明文传递的，交互过程以及数据传输都没有进行加密，通信双方也没有进行任何认证，通信过程非常容易遭遇劫持、监听、篡改，严重情况下，会造成恶意的流量劫持等问题，甚至导致用户的账户，密码失窃。</p>
+<p>http通信就像上课时两个很远的人传小纸条交流，此时在传输的过程中，会经过很多人的收，此时就有可能造成途中，纸条的信息被传递者发现，里面的任何内容（包括各类账号和密码）都会被轻易窃取，因为纸条上的数据信息是明文传递的，都可以看的懂。而且在此期间，传输者甚至可以修改发送者的信息，导致双方都得到错误的信息。</p>
+<p>比如常见的，在http通信过程中的”中间人攻击”。造成流量劫持，用户密码被获取等等。</p>
+<h2 id="HTTPS如何保证安全"><a href="#HTTPS如何保证安全" class="headerlink" title="HTTPS如何保证安全"></a>HTTPS如何保证安全</h2><p>http最大的问题就是明文传输，导致信息容易泄露。那么安全的办法就是想办法让数据不可见，即使被抓取，仍然看不懂其中的信息即可。同时要保证交换信息的双方都是”真实的双方”，即需要校验彼此的身份。</p>
+<p>那么如何才能做到这样呢？</p>
+<p>如何建立这样的通信，其实就是先使用不对称加密，先确认彼此的身份，然后通过这个不对成的加密，把客户端对称加密的密匙发送过去，之后服务端用私钥解密，获取对称加密的密钥，之后使用对称加密的方式进行传输信息。这样看似很安全，但是其实没有校验用户的身份，如果存在一个中间人，他偷取了服务端的公钥，然后伪造一个公钥给客户端发送过去，其实也就是在服务端眼里他是客户端，在客户端眼里他就是那个请求客户端。所以这里需要引入一个<strong>证书</strong>功能，就是服务端把公钥放到公开的地方，然后找一个权威机构，对公钥进行数字签名，那么公钥就不存在被篡改的可能，从而导致了https的安全传输。</p>
+<p>那么我们来看看其中的各个名词的意思吧。</p>
+<h3 id="公钥密码体制"><a href="#公钥密码体制" class="headerlink" title="公钥密码体制"></a>公钥密码体制</h3><p>公钥的密码体制分为三个部分，公钥，私钥，加解密算法。</p>
+<ul>
+<li><p>加密：通过加密算法和公钥对内容(或者说明文)进行加密，得到密文。加密过程需要用到公钥。 </p>
+</li>
+<li><p>解密：通过解密算法和私钥对密文进行解密，得到明文。解密过程需要用到解密算法和私钥。</p>
+</li>
+</ul>
+<p>同时，公钥加密的内容只能用私钥解密，相应的私钥加密的内容也只有公钥才能解开。一般公钥是公开的，私钥都是自己保存的，公私钥加密的算法是公开的。</p>
+<p>密钥，一般就是一个字符串或数字，在加密或者解密时传递给加密/解密算法。前面在公钥密码体制中说到的公钥、私钥就是密钥，公钥是加密使用的密钥，私钥是解密使用的密钥。</p>
+<h3 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h3><p>在对称加密算法中，加密用的公钥和解密用的私钥是一样的，也就是说加解密所用的是同一个密钥。这种算法，由于不区分公私钥，所以密钥一定要做好保密，确保其安全性。</p>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>在非对称加密算法中，加密使用的密钥和解密使用的密钥是不相同的。前面所说的公钥密码体制就是一种非对称加密算法，他的公钥和是私钥是不能相同的，也就是说加密使用的密钥和解密使用的密钥不同，因此它是一个非对称加密算法。</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>一般我们说的加密，就是指对某一个东西加密，加密的内容是可以通过解密进行还原的。</p>
+<p>签名则是不可还原的，它的用途就是证明这段话没有被修改过，怎么才能做到这种效果呢？一般是对内容进行hash，得到一个hash值，由于hash不可逆，也就无法获取原先的内容。那么在发送信息的后面加上hash值，获得信息的人，只要把信息hash一下，和发送者的hash进行对比，就可以知道信件是不是被修改过。(hash是摘要算法，不同的值hash出来是完全不同的)</p>
+<h3 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h3><p>数字证书都包括是什么呢？</p>
+<ul>
+<li><p>在开始菜单中，输入mmc，回车。</p>
+</li>
+<li><p>在打开的菜单中选择-&gt;文件-&gt;添加/删除管理单元</p>
+</li>
+<li><p>然后再弹出的对话框中，往下翻寻找证书</p>
+</li>
+<li><p>双击打开，选择第一个，我的用户账户</p>
+</li>
+<li><p>然后点击证书，侧面会有按照xx分类。</p>
+</li>
+</ul>
+<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1givsjt1mhxj30xz06c0w7.jpg" alt="image-20200919101217647"></p>
+<p>双击可以看到具体的东西。里面的东西都翻译的很具体了。</p>
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1givsk840mkj30fj0gv75r.jpg" alt="image-20200919102627656"></p>
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1givslf8vnwj30f209gabo.jpg" alt="image-20200919102656220"></p>
+<ul>
+<li><p>指纹</p>
+<p>这个其实是用来保证证书的完整性的，也就是表示证书没被修改过。原理就是在发布证书的时候，发布一个指纹算法(hash)计算下证书的hash值(指纹)然后和证书放一起。用户得到证书加密下，然后进行对比，获取证书是否被修改。这个指纹会使用发布机构的私钥用签名算法加密之后和证书放在一起。</p>
+</li>
+<li><p>一个小问题</p>
+<p style="color:#FF0000" ;>如果我得到了证书，我把证书的全部改了个遍，我先改公钥，到最后我把我的hash值(指纹)放上去，那么我是不是也就仿造了一个证书呢? 其实这个问题，在上面的最后一部就解决了，<b>用私钥加密指纹</b>，黑客现在修改了公钥，然后在生成hash值，但是他是没有私钥的，他用公钥加密出来的东西，我们无法解开(我们也只有公钥，非对称加密)，所以这里就保证了证书的绝对可信。</p>
 
+</li>
+</ul>
+<p>上面我们说了证书的安全性，表明了他被发出是没有问题的，基本不存在被人篡改的可能性。但是如果这个证书发布机构本来就是黑客搞的。那直接降维打击了。所以证书虽然谁都可以搞，但是微软等公司会根据一些权威安全机构的评估选取一些信誉很好并且通过一定的安全认证的证书发布机构，把这些证书发布机构的证书默认就安装在操作系统里，所以证书的安全是建立在被公认的安全机构发布的，我们自己搞的东西，人家是不认可的。</p>
+<h3 id="模拟下https通信"><a href="#模拟下https通信" class="headerlink" title="模拟下https通信"></a>模拟下https通信</h3><p>“客户”—&gt;”服务器” :你好</p>
+<p>“服务器”—&gt;”客户”：你好，我是服务器，这里是我的数字证书 </p>
+<p>“客户”-&gt;”服务器”：向我证明你就是服务器，这是一个随机字符串 </p>
+<p>“服务器”-&gt;”客户”：{一个随机字符串}[私钥|RSA]   //用私钥 RSA算法加密</p>
+<p>“客户”—&gt;”服务器”：(公钥解密，对比获取服务器身份){对称加密算法和密钥}[公钥|RSA]</p>
+<p>“服务器”-&gt;”客户”：{OK，已经收到你发来的对称加密算法和密钥！有什么可以帮到你的？}[密钥|对称加密算法]</p>
+<p>“客户”-&gt;”服务器”：{我的帐号是aaa，密码是123，把我的余额的信息发给我看看}[密钥|对称加密算法]</p>
+<p>“服务器”-&gt;”客户”：{你好，你的余额是100元}[密钥|对称加密算法]</p>
+<p>……</p>
+<ol>
+<li><p style="color:#FF0000" ;>问题1</p>
+
+<p>在上述的通信中，服务器会对用户的随机字符串进行加密，然后服务器私钥加密发送回来，但是如果黑客发送有规律的字符串给服务器，然后通过一系列的回显查看，进行破解，寻找规律，对服务器的私钥安全就有很大的威胁</p>
+<p><strong>解决方法</strong></p>
+<p>每次收到”客户”的随机字符串，都不对它直接加密，而是对其先进行hash，然后去加密hash的值，”客户”也是先用公钥解密”服务器”发过来的值，然后和把字符串hash，然后做对比。</p>
+</li>
+<li><p style="color:#FF0000" ;>问题2</p>
+
+<p>在双方的通信过程中，“黑客”可以截获发送的加密了的内容，虽然他无法解密这个内容，但是他可以捣乱，例如把信息原封不动的发送多次，扰乱通信过程。</p>
+<p><strong>解决方法</strong></p>
+<p>可以给通信的内容加上一个序号或者一个随机的值，如果“客户”或者“服务器”接收到的信息中有之前出现过的序号或者随机值，那么说明有人在通信过程中重发信息内容进行捣乱，双方会立刻停止通信。有人可能会问，如果有人一直这么捣乱怎么办？那不是无法通信了？  答案是的确是这样的，例如有人控制了你连接互联网的路由器，他的确可以针对你。但是一些重要的应用，例如军队或者政府的内部网络，它们都不使用我们平时使用的公网，因此一般人不会破坏到他们的通信。</p>
+</li>
+<li><p style="color:#FF0000" ;>问题3</p>
+
+<p>在双方通信中黑客也可以对密文直接进行修改，虽然他不知道内容是什么，但是不妨碍他可以让你也不知道密文是什么啊。</p>
+<p><strong>解决方法</strong></p>
+<p>在每次发送信息时，先对信息的内容进行一个hash计算得出一个hash值，将信息的内容和这个hash值一起加密后发送。接收方在收到后进行解密得到明文的内容和hash值，然后接收方再自己对收到信息内容做一次hash计算，与收到的hash值进行对比看是否匹配，如果匹配就说明信息在传输过程中没有被修改过。如果不匹配说明中途有人故意对加密数据进行了修改，立刻中断通话过程后做其它处理。</p>
+</li>
+<li><p style="color:#FF0000" ;>问题4</p>
+
+<p>为什么在之后的通话要使用对称加密</p>
+<p>如果一直使用这种非对称的加密，黑客在中间拦截报文，虽然他的确无法看到你自己发送给服务器的内容，但是服务器发送给你的信息是用服务器私钥加密的啊，此时的信息是要使用公钥解密的，也就是说，对于所以有公钥的人来说，就是没有加密的内容，黑客获取到之后就可以对它进行解密以获取它的内容。</p>
+</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/19/HTTP%E4%B8%8EHTTPS/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/15/Redis/" class="archive-article-date">
-  	<time datetime="2020-09-15T13:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          浏览器解码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/15/Redis/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/15/Redis/">Redis</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP为什么不安全"><span class="toc-number">1.</span> <span class="toc-text">HTTP为什么不安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTPS如何保证安全"><span class="toc-number">2.</span> <span class="toc-text">HTTPS如何保证安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#公钥密码体制"><span class="toc-number">2.1.</span> <span class="toc-text">公钥密码体制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对称加密"><span class="toc-number">2.2.</span> <span class="toc-text">对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非对称加密"><span class="toc-number">2.3.</span> <span class="toc-text">非对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字签名"><span class="toc-number">2.4.</span> <span class="toc-text">数字签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字证书"><span class="toc-number">2.5.</span> <span class="toc-text">数字证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟下https通信"><span class="toc-number">2.6.</span> <span class="toc-text">模拟下https通信</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/" class="archive-article-date">
-  	<time datetime="2020-09-05T01:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">反序列化逃逸</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -262,8 +427,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
