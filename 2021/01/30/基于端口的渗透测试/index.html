@@ -6,12 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | TuNan&#39;s Blogs</title>
+  <title>基于端口的渗透测试 | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="基于端口的渗透测试服务默认端口公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务； 注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务； 动态&#x2F;私有：49152-65535，不为服务分配这些端口；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于端口的渗透测试">
+<meta property="og:url" content="http://yoursite.com/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="基于端口的渗透测试服务默认端口公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务； 注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务； 动态&#x2F;私有：49152-65535，不为服务分配这些端口；">
+<meta property="article:published_time" content="2021-01-29T18:32:20.000Z">
+<meta property="article:modified_time" content="2021-01-29T18:32:59.796Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
   
@@ -143,305 +147,356 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-基于端口的渗透测试" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      基于端口的渗透测试
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="archive-article-date">
+
+        
+        <a href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="archive-article-date">
   	<time datetime="2021-01-29T18:32:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-30</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">基于端口的渗透测试</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/" class="archive-article-date">
-  	<time datetime="2021-01-28T06:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/">golang 爬虫</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+        <h1 id="基于端口的渗透测试"><a href="#基于端口的渗透测试" class="headerlink" title="基于端口的渗透测试"></a>基于端口的渗透测试</h1><h2 id="服务默认端口"><a href="#服务默认端口" class="headerlink" title="服务默认端口"></a>服务默认端口</h2><p>公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务；</p>
+<p>注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务；</p>
+<p>动态/私有：49152-65535，不为服务分配这些端口；</p>
+<a id="more"></a>
+
+<h2 id="获取端口信息"><a href="#获取端口信息" class="headerlink" title="获取端口信息"></a>获取端口信息</h2><ol>
+<li>常见应用的默认端口</li>
+<li>扫描器扫描信息（nmap）</li>
+</ol>
+<h2 id="图解端口"><a href="#图解端口" class="headerlink" title="图解端口"></a>图解端口</h2><p>图解端口以及攻击方式</p>
+<table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>攻击技巧</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21/22/69</td>
+<td>ftp/tftp：文件传输协议</td>
+<td>爆破 嗅探溢出；后门</td>
+</tr>
+<tr>
+<td>22</td>
+<td>ssh：远程连接</td>
+<td>爆破 OpenSSH；28个退格</td>
+</tr>
+<tr>
+<td>23</td>
+<td>telnet：远程连接</td>
+<td>爆破 嗅探</td>
+</tr>
+<tr>
+<td>25</td>
+<td>smtp：邮件服务</td>
+<td>邮件伪造</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS：域名系统</td>
+<td>DNS区域传输DNS劫持DNS缓存投毒DNS欺骗深度利用：利用DNS隧道技术刺透防火墙</td>
+</tr>
+<tr>
+<td>67/68</td>
+<td>dhcp</td>
+<td>劫持欺骗</td>
+</tr>
+<tr>
+<td>110</td>
+<td>pop3</td>
+<td>爆破</td>
+</tr>
+<tr>
+<td>139</td>
+<td>samba</td>
+<td>爆破，未授权访问，远程代码执行</td>
+</tr>
+<tr>
+<td>143</td>
+<td>imap</td>
+<td>爆破</td>
+</tr>
+<tr>
+<td>161</td>
+<td>snmp</td>
+<td>爆破</td>
+</tr>
+<tr>
+<td>389</td>
+<td>ldap</td>
+<td>注入攻击未授权访问</td>
+</tr>
+<tr>
+<td>512/513/514</td>
+<td>linux r</td>
+<td>直接使用rlogin</td>
+</tr>
+<tr>
+<td>873</td>
+<td>rsync</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>1080</td>
+<td>socket</td>
+<td>爆破：进行内网渗透</td>
+</tr>
+<tr>
+<td>1352</td>
+<td>lotus</td>
+<td>爆破：弱口令信息泄漏：源代码</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>mssql</td>
+<td>爆破：使用系统用户登录注入攻击</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>oracle</td>
+<td>爆破：TNS注入攻击</td>
+</tr>
+<tr>
+<td>2049</td>
+<td>nfs</td>
+<td>配置不当</td>
+</tr>
+<tr>
+<td>2181</td>
+<td>zookeeper</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>mysql</td>
+<td>爆破拒绝服务注入</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>rdp</td>
+<td>爆破Shift后门</td>
+</tr>
+<tr>
+<td>4848</td>
+<td>glassfish</td>
+<td>爆破：控制台弱口令认证绕过</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>sybase/DB2</td>
+<td>爆破注入</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>postgresql</td>
+<td>缓冲区溢出注入攻击爆破：弱口令</td>
+</tr>
+<tr>
+<td>5632</td>
+<td>pcanywhere</td>
+<td>拒绝服务代码执行</td>
+</tr>
+<tr>
+<td>5900</td>
+<td>vnc</td>
+<td>爆破：弱口令认证绕过</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>redis</td>
+<td>未授权访问爆破：弱口令</td>
+</tr>
+<tr>
+<td>7001</td>
+<td>weblogic</td>
+<td>Java反序列化控制台弱口令控制台部署webshell</td>
+</tr>
+<tr>
+<td>80/443/8080</td>
+<td>web</td>
+<td>常见web攻击控制台爆破对应服务器版本漏洞</td>
+</tr>
+<tr>
+<td>8069</td>
+<td>zabbix</td>
+<td>远程命令执行</td>
+</tr>
+<tr>
+<td>9090</td>
+<td>websphere控制台</td>
+<td>爆破：控制台弱口令Java反序列</td>
+</tr>
+<tr>
+<td>9200/9300</td>
+<td>elasticsearch</td>
+<td>远程代码执行</td>
+</tr>
+<tr>
+<td>11211</td>
+<td>memcacache</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td>27017</td>
+<td>mongodb</td>
+<td>爆破</td>
+</tr>
+</tbody></table>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-10-23T05:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">浏览器解码</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
-  	<time datetime="2020-09-19T03:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">golang 爬虫</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">HTTP与HTTPS</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于端口的渗透测试"><span class="toc-number">1.</span> <span class="toc-text">基于端口的渗透测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#服务默认端口"><span class="toc-number">1.1.</span> <span class="toc-text">服务默认端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取端口信息"><span class="toc-number">1.2.</span> <span class="toc-text">获取端口信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图解端口"><span class="toc-number">1.3.</span> <span class="toc-text">图解端口</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/15/Redis/" class="archive-article-date">
-  	<time datetime="2020-09-15T13:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/15/Redis/">Redis</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/" class="archive-article-date">
-  	<time datetime="2020-09-05T01:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">反序列化逃逸</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/17/SSRF/" class="archive-article-date">
-  	<time datetime="2020-08-17T04:36:34.967Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/17/SSRF/">SSRF</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/" class="archive-article-date">
-  	<time datetime="2020-08-15T20:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">独孤九剑</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/" class="archive-article-date">
-  	<time datetime="2020-08-11T20:01:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">一次完整的http请求</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/12/prompt(1)/" class="archive-article-date">
-  	<time datetime="2020-08-11T19:54:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/12/prompt(1)/">prompt(1)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -465,8 +520,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
