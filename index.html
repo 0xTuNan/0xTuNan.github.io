@@ -166,74 +166,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="CVE-2014-0160漏洞复现"><a href="#CVE-2014-0160漏洞复现" class="headerlink" title="CVE-2014-0160漏洞复现"></a><strong>CVE-2014-0160</strong>漏洞复现</h2><p>漏洞成因</p>
-<p>Heartbleed漏洞是由于未能在memcpy()调用受害用户输入内容作为长度参数之前正确进行边界检查。攻击者可以追踪OpenSSL所分配的64KB缓存、将超出必要范围的字节信息复制到缓存当中再返回缓存内容，这样一来受害者的内存内容就会以每次64KB的速度进行泄露。如同漏洞成因所讲，可以通过该漏洞读取每次攻击泄露出来的信息，所以可能也可以获取到服务器的私钥，用户cookie和密码等。</p>
-<p>漏洞影响范围<br>OpenSSL1.0.1版本</p>
-<h4 id="进入shodan寻找存在漏洞网站"><a href="#进入shodan寻找存在漏洞网站" class="headerlink" title="进入shodan寻找存在漏洞网站"></a>进入shodan寻找存在漏洞网站</h4><ol>
-<li><p>寻找存在漏洞的网站</p>
-<p><img src="https://tva4.sinaimg.cn/large/007OtlCnly1gn9vvkgs9sj31av0hg43g.jpg" alt="image-20210130024311827"></p>
-</li>
-<li><p>打开kali中的msf进行复现</p>
-<p>然后使用 auxiliary/scanner/ssl/openssl_heart_bleed功能。</p>
-<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gn9vw2hj6cj31100fx78r.jpg" alt="image-20210203034605931"></p>
-<p><img src="https://tvax2.sinaimg.cn/large/007OtlCnly1gn9vwbluffj31190bzgom.jpg" alt="image-20210203034653520"></p>
-</li>
-<li><p>执行run命令，运行扫描器，查看结果，可以看到有Heartbeat response with leak的字样，证明该站存在HeartBleed漏洞</p>
-<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gn9vwomofej30yt03qaan.jpg" alt="image-20210203034911809"></p>
-</li>
-<li><p>进行攻击</p>
-<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gn9vwzut8fj312v0lrahz.jpg" alt="image-20210203035217369"></p>
-<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gn9vx7xidsj312a0n04cu.jpg" alt="image-20210203035307467"></p>
-<p><img src="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210203035343919.png" alt="image-20210203035343919"></p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gn9vy44gx9j312e0m9jwx.jpg" alt="image-20210203035417007"></p>
-</li>
-</ol>
-<h4 id="修复方法"><a href="#修复方法" class="headerlink" title="修复方法"></a>修复方法</h4><p>升级openssl。此外，做如下措施。</p>
-<ol>
-<li>修改服务器密码</li>
-<li>重新配置私钥</li>
-<li>重新配置证书</li>
-</ol>
-<h2 id="CVE-2020-15778-scp命令注入"><a href="#CVE-2020-15778-scp命令注入" class="headerlink" title="CVE-2020-15778 scp命令注入"></a>CVE-2020-15778 scp命令注入</h2><p>漏洞描述</p>
-<p>该漏洞即使在禁用ssh登录的情况下，但是允许使用scp传文件，而且远程服务器允许使用反引号(`)，可利用scp复制文件到远程服务器时，执行带有payload的scp命令，从而在后续利用中getshell。漏洞利用需要知道或猜中OpenSSH登陆用户名及密码。</p>
-<p>漏洞原理</p>
-<p>使用scp复制文件到远程服务器时，在scp命令后面跟上文件的路径，具体格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp SourceFile user@host:directory&#x2F;TargetFile</span><br></pre></td></tr></table></figure>
-
-<p>在上述过程中，scp会使用”-t“参数来获取存储传入文件的路径，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -t directory&#x2F;TargetFile</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://tva4.sinaimg.cn/large/007OtlCnly1gn9vymhvpzj30z909m74r.jpg" alt="image-20210203050837856"></p>
-<p>如上图所示。这个地方未对传入的文件路径进行检测防护。攻击者可以使用反引号包裹payload然后加上文件名执行scp命令，这时，payload将会发送到远程服务器并执行</p>
-<p>漏洞影响范围</p>
-<p>OpenSSH &lt;= 8.3p1</p>
-<h3 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">攻击机：kali</span><br><span class="line">靶机ip：192.168.17.129 </span><br><span class="line">用户名：username 密码：123456</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>先查看ssh的版本</p>
-<p><img src="https://tvax3.sinaimg.cn/large/007OtlCnly1gn9vyzp52ij30l901sjrn.jpg" alt="image-20210203043906978"></p>
-<p>8.2p1 ,存在漏洞</p>
-</li>
-<li><p>正常复制文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp .&#x2F;tunan.txt username@192.168.17.129:&#x2F;home&#x2F;username&#x2F;tunan.txt</span><br></pre></td></tr></table></figure>
-
-<p>把本机上的tunan.txt 复制到靶机上的username用户的目录下，并命名为tunan.txt</p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gn9w0v73o9j30sl03ft9a.jpg" alt="image-20210203043701920"></p>
-<p><img src="https://tvax3.sinaimg.cn/large/007OtlCnly1gn9w1phix4j30wc01xdg4.jpg" alt="image-20210203044036511"></p>
-</li>
-<li><p>执行带有payload的scp命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp .&#x2F;tunan.txt username@192.168.17.129:&#39;&#96;echo &quot;tunan&quot;&gt; &#x2F;home&#x2F;username&#x2F;tunan.txt&#96;&#x2F;home&#x2F;username&#x2F;1.txt&#39;</span><br></pre></td></tr></table></figure>
-
-<p>将“tunan” 写到<code>/home/username</code>目录下的<code>tunan.txt</code>文件内、</p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gn9w2ogmarj30rx024jrq.jpg" alt="image-20210203045548365"></p>
-<p><img src="https://tva4.sinaimg.cn/large/007OtlCnly1gn9w2d8f8rj30r204k3yp.jpg" alt="image-20210203045746956"></p>
-<p>成功执行命令</p>
-</li>
-</ol>
-<h3 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h3><ul>
-<li>修改密码为强密码，并定期更换</li>
-<li>等补丁</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/#more">more >></a>
+        
       
 
       
