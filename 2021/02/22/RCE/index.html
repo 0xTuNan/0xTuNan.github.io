@@ -6,14 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | TuNan&#39;s Blogs</title>
+  <title>RCE | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="代码执行原理代码的执行来自于缺乏严格的过滤或者用户控制数据的逃逸。在这里由于攻击者可以控制部分或者所有内容传递给这些未进行严格过滤的函数，从而导致提交的内容会被作为PHP代码执行。如PHP的eval函数，可以将字符串代表的代码作为PHP代码执行，当用户能够控制这段字符串时，将产生代码注入漏洞（也称命令执行）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RCE">
+<meta property="og:url" content="http://yoursite.com/2021/02/22/RCE/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="代码执行原理代码的执行来自于缺乏严格的过滤或者用户控制数据的逃逸。在这里由于攻击者可以控制部分或者所有内容传递给这些未进行严格过滤的函数，从而导致提交的内容会被作为PHP代码执行。如PHP的eval函数，可以将字符串代表的代码作为PHP代码执行，当用户能够控制这段字符串时，将产生代码注入漏洞（也称命令执行）。">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304114127846.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200302233521263.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304115817061.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223001955133.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223002823380.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013226738.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013607080.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014113106.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014519951.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223015127919.png">
+<meta property="article:published_time" content="2021-02-22T01:57:26.000Z">
+<meta property="article:modified_time" content="2021-02-22T18:04:42.929Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304114127846.png">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -143,305 +158,264 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-RCE" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/01/%E6%97%A0%E5%AD%97%E7%AC%A6rce/" class="archive-article-date">
-  	<time datetime="2021-02-28T17:26:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-01</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/01/%E6%97%A0%E5%AD%97%E7%AC%A6rce/">无字符rce</a>
+    <h1 class="article-title" itemprop="name">
+      RCE
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2021-02-22T18:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/">sql注入</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/22/RCE/" class="archive-article-date">
+        
+        <a href="/2021/02/22/RCE/" class="archive-article-date">
   	<time datetime="2021-02-22T01:57:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/22/RCE/">RCE</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
+        
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2021-02-02T21:11:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">OpenSSL漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2021-01-29T18:32:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">基于端口的渗透测试</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/" class="archive-article-date">
-  	<time datetime="2021-01-28T06:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/">golang 爬虫</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
+    <div class="article-entry" itemprop="articleBody">
       
-        </div></section>
+        <h2 id="代码执行原理"><a href="#代码执行原理" class="headerlink" title="代码执行原理"></a>代码执行原理</h2><p>代码的执行来自于缺乏严格的过滤或者用户控制数据的逃逸。在这里由于攻击者可以控制部分或者所有内容传递给这些未进行严格过滤的函数，从而导致提交的内容会被作为PHP代码执行。如PHP的eval函数，可以将字符串代表的代码作为PHP代码执行，当用户能够控制这段字符串时，将产生代码注入漏洞（也称命令执行）。</p>
+<a id="more"></a>
+
+<h2 id="PHP常见的代码执行函数"><a href="#PHP常见的代码执行函数" class="headerlink" title="PHP常见的代码执行函数"></a>PHP常见的代码执行函数</h2><ul>
+<li><p><code>eval(),assert()</code></p>
+<ul>
+<li><p>eval() </p>
+<p>eval() 函数把字符串按照 PHP 代码来计算。</p>
+<p>该字符串必须是合法的 PHP 代码，且必须以分号结尾。</p>
+</li>
+<li><p>assert()</p>
+<p>断言函数，检查一个断言是否为 <strong>FALSE</strong></p>
+</li>
+</ul>
+</li>
+<li><p><code>preg_repalce + /e</code>模式</p>
+<p>preg_repalce( pattern,replacement,subject)</p>
+<p>搜索 subject 中匹配 pattern 的部分， 以 replacement 进行替换。</p>
+<p>preg_replace()函数原本是执行一个正则表达式的搜索和替换，但因为存在危险的/e修饰符，使 preg_replace() 将 replacement 参数当作 PHP 代码。</p>
+</li>
+<li><p><strong>调用函数过滤不严</strong></p>
+<p>call_user_func()和array_map()等数十个函数都有调用其他函数的功能，其中的一个参数是要调用的函数 ，第二个参数作为调用函数的参数。</p>
+<p>其余同类型的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">call_user_func()  call_user_func_array()  array_map()</span><br><span class="line">usort()  uasort()  uksort()   array_filter()</span><br><span class="line">array_ reduce()   array_diff_uassoc()    array_diff_ukey()</span><br><span class="line">array_ udiff()   array_ udiff_ assoc()   array_udiff_uassoc()</span><br><span class="line">array_intersect_assoc()      array_intersect_uassoc()</span><br><span class="line">array_uintersect()        array_uintersect_assoc()</span><br><span class="line">array_uintersect_uassoc()   array_walk()    array_walk_recursive()</span><br><span class="line">xml_set_character_data_handler()     xml_set_default_handler()</span><br><span class="line">xml_set_element_handler()          xml_set_end_namespace_decl_handler()</span><br><span class="line">xml_set_external_entity_ref_handler()   xml_set_notation_decl_handler()</span><br><span class="line">xml_set_processing_instruction_handler()</span><br><span class="line">xml_set_start_namespace_decl_handler()</span><br><span class="line">xml_set_unparsed_entity_decl_handler()     stream_filter_register()</span><br><span class="line">set_error_handler()     register_shutdown_function()    register_tick_function()</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>动态函数执行</strong></p>
+<p>php动态函数的写法为”变量(参数)”</p>
+</li>
+</ul>
+<h2 id="任意代码执行利用"><a href="#任意代码执行利用" class="headerlink" title="任意代码执行利用"></a>任意代码执行利用</h2><h3 id="eval-与asser"><a href="#eval-与asser" class="headerlink" title="eval()与asser()"></a>eval()与asser()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$data = $_GET[<span class="string">'data'</span>];</span><br><span class="line"><span class="keyword">eval</span>(<span class="string">"\$ret = $data;"</span>);</span><br><span class="line"><span class="keyword">echo</span> $ret;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">    </span><br><span class="line">paylode： ?data=phpinfo()</span><br><span class="line">    </span><br><span class="line">再遇到其余的情况，就需要闭合括号，逃逸等。</span><br></pre></td></tr></table></figure>
+
+<h3 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">@preg_replace(<span class="string">"/abc/e"</span>,$_REQUEST[<span class="string">'data'</span>],<span class="string">"abcd"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">paylode: ?data=phpinfo()</span><br></pre></td></tr></table></figure>
+
+<p>但是在php7中，不在支持preg_replace()的/e模式。</p>
+<p>在上述的代码之中，是直接在preg_replace()函数中第一个参数参数处出现了/e，但是即使在第一个参数处无/e,也有可能出现任意代码执行，前提是第一个参数可控。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">$str=$_GET[<span class="string">'data'</span>];</span><br><span class="line">preg_replace(<span class="string">"/a$str/"</span>,$_REQUEST[<span class="string">'tu'</span>],<span class="string">"abcd"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">paylode:?data=bc/e%<span class="number">00</span>&amp;tu=phpinfo()</span><br></pre></td></tr></table></figure>
+
+<p>%00截断 需要php版本要小于5.3.4</p>
+<h3 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func()"></a>call_user_func()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">call_user_func($_GET[<span class="string">'a'</span>],$_GET[<span class="string">'b'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>第一个参数是被调用的函数，第二个参数是调用函数的参数。</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304114127846.png" alt="image-20200304114127846"></p>
+<h3 id="动态函数"><a href="#动态函数" class="headerlink" title="动态函数"></a>动态函数</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$_GET[<span class="string">'a'</span>]($_GET[<span class="string">'b'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这段代码的意思是，将GET请求的a参数当做函数，b参数当做函数的参数</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200302233521263.png" alt="image-20200302233521263"></p>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>代码执行漏洞指的是可以执行PHP脚本代码，而命令执行代码指的是可以执行系统或应用指令的漏洞，php命令执行漏洞主要是基于一些函数的参数过滤不严导致的。可以执行命令的函数有system()  exec()  shell_exec()   passthru()  pcntl_exec()   popen()  proc_open  一共七个函数，另外单引号也可以执行命令，不过实际上这种方式也是调用的shell_exec()函数</p>
+<p>php执行命令一般是继承webserver的权限，可以直接写入文件。</p>
+<p><strong>exec() shell_exec() passthru() system()（还有反引号）</strong></p>
+<p>这四个函数是可以直接传入命令，然后函数会返回执行结果，但是system()比较特殊，他可以直接返回并打印出来，不需要echo也可以。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">system($_GET[<span class="string">'a'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304115817061.png" alt="image-20200304115817061"></p>
+<p>popen()函数和proc_open()函数不会直接返回执行结果，而是返回一个文件指针，但是命令的确是执行了。</p>
+<p>popen()函数有两个参数，第一个是要执行的命令，第二个是指针文件的连接模式。（r，w分别是读和写）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">popen(<span class="string">"whoami &gt;&gt; D:/1.txt"</span>,<span class="string">"w"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个是将whoami执行出来的命令输出到D盘的1.txt文件中，可以在d盘中的1.txt中找到。</p>
+<h3 id="常用的绕过"><a href="#常用的绕过" class="headerlink" title="常用的绕过"></a>常用的绕过</h3><h4 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h4><p><code>&lt;</code>符号</p>
+<p>重定向符号，使用<code>cat</code>命令从<code>hello.txt</code>中读出</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223001955133.png" alt="image-20210223001955133"></p>
+<p><code>${IFS},$IFS$9</code></p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223002823380.png" alt="image-20210223002823380"></p>
+<p>IFS 是 shell 的特殊环境变量，shell 根据 IFS 的值，默认是 space, tab, newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量。</p>
+<p>${IFS},$IFS,$IFS$9，首先$IFS在linux下表示分隔符，单纯的cat$IFShello.txt，$IFS与hello.txt没有边界，所以导致输不出来结果，然而如果加一个{}就固定了变量名，同理在后面加个$可以起到截断的作用，而且也不必是$9,其余1-8也可以。</p>
+<p><code>%09</code></p>
+<p>在php环境下可以</p>
+<h4 id="命令分割符"><a href="#命令分割符" class="headerlink" title="命令分割符"></a>命令分割符</h4><p><code>%0a, %0d</code></p>
+<p>换行与回车符号</p>
+<p><code>;</code>符号</p>
+<p>在 shell 中，使用连续指令功能的符号就是”分号</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013226738.png" alt="image-20210223013226738"></p>
+<p><code>&amp;&amp;</code> 符号<br>前一个命令执行成功才会执行下一条命令<br><code>||</code> 符号<br>前一个命令执行失败才会执行下一条命令</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013607080.png" alt="image-20210223013607080"></p>
+<p><code>&amp;</code> 符号<br>表示将前一个命令设置进入后台<br><code>|</code> 符号<br>管道符，将前一个命令的输出作为后一个命令的输入</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014113106.png" alt="image-20210223014113106"></p>
+<h4 id="黑名单"><a href="#黑名单" class="headerlink" title="黑名单"></a>黑名单</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v&#x3D;hel;x&#x3D;lo;cat $v$x</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014519951.png" alt="image-20210223014519951"></p>
+<p>编码绕过</p>
+<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223015127919.png" alt="image-20210223015127919"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-10-23T05:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">浏览器解码</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/02/22/RCE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
-  	<time datetime="2020-09-19T03:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          sql注入
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OpenSSL漏洞复现</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">HTTP与HTTPS</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#代码执行原理"><span class="toc-number">1.</span> <span class="toc-text">代码执行原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP常见的代码执行函数"><span class="toc-number">2.</span> <span class="toc-text">PHP常见的代码执行函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#任意代码执行利用"><span class="toc-number">3.</span> <span class="toc-text">任意代码执行利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eval-与asser"><span class="toc-number">3.1.</span> <span class="toc-text">eval()与asser()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#preg-replace"><span class="toc-number">3.2.</span> <span class="toc-text">preg_replace()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call-user-func"><span class="toc-number">3.3.</span> <span class="toc-text">call_user_func()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态函数"><span class="toc-number">3.4.</span> <span class="toc-text">动态函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令执行"><span class="toc-number">4.</span> <span class="toc-text">命令执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的绕过"><span class="toc-number">4.1.</span> <span class="toc-text">常用的绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#空格绕过"><span class="toc-number">4.1.1.</span> <span class="toc-text">空格绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令分割符"><span class="toc-number">4.1.2.</span> <span class="toc-text">命令分割符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#黑名单"><span class="toc-number">4.1.3.</span> <span class="toc-text">黑名单</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/15/Redis/" class="archive-article-date">
-  	<time datetime="2020-09-15T13:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/15/Redis/">Redis</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/" class="archive-article-date">
-  	<time datetime="2020-09-05T01:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">反序列化逃逸</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -465,8 +439,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
