@@ -14,21 +14,21 @@
 <meta property="og:url" content="http://yoursite.com/2021/02/22/RCE/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
 <meta property="og:description" content="代码执行原理代码的执行来自于缺乏严格的过滤或者用户控制数据的逃逸。在这里由于攻击者可以控制部分或者所有内容传递给这些未进行严格过滤的函数，从而导致提交的内容会被作为PHP代码执行。如PHP的eval函数，可以将字符串代表的代码作为PHP代码执行，当用户能够控制这段字符串时，将产生代码注入漏洞（也称命令执行）。">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304114127846.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200302233521263.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304115817061.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223001955133.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223002823380.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013226738.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013607080.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014113106.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014519951.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223015127919.png">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007OtlCngy1go4erq5r9yj3171091my4.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/007OtlCngy1go4es6ruekj312p09gt9p.jpg">
+<meta property="og:image" content="https://tvax2.sinaimg.cn/large/007OtlCngy1go4etbza4rj30rw09sdg7.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/007OtlCngy1go4etx4kssj30i5038my8.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCngy1go4eu9oitlj30kf05sq5v.jpg">
+<meta property="og:image" content="https://tvax1.sinaimg.cn/large/007OtlCngy1go4eulj42fj30kv01wmxr.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/007OtlCngy1go4euzadmbj30k304pjso.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCngy1go4eve454fj30hi03jdh2.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/007OtlCngy1go4evpk8z2j30ks02xabk.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/007OtlCngy1go4ew2i1dhj30jd03gwfl.jpg">
 <meta property="article:published_time" content="2021-02-22T01:57:26.000Z">
-<meta property="article:modified_time" content="2021-02-22T18:04:42.929Z">
+<meta property="article:modified_time" content="2021-03-01T06:58:11.131Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304114127846.png">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007OtlCngy1go4erq5r9yj3171091my4.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -224,18 +224,18 @@
 <h3 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func()"></a>call_user_func()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">call_user_func($_GET[<span class="string">'a'</span>],$_GET[<span class="string">'b'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>第一个参数是被调用的函数，第二个参数是调用函数的参数。</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304114127846.png" alt="image-20200304114127846"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007OtlCngy1go4erq5r9yj3171091my4.jpg" alt="image-20200304114127846"></p>
 <h3 id="动态函数"><a href="#动态函数" class="headerlink" title="动态函数"></a>动态函数</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$_GET[<span class="string">'a'</span>]($_GET[<span class="string">'b'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这段代码的意思是，将GET请求的a参数当做函数，b参数当做函数的参数</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200302233521263.png" alt="image-20200302233521263"></p>
+<p><img src="https://tva4.sinaimg.cn/large/007OtlCngy1go4es6ruekj312p09gt9p.jpg" alt="image-20200302233521263"></p>
 <h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>代码执行漏洞指的是可以执行PHP脚本代码，而命令执行代码指的是可以执行系统或应用指令的漏洞，php命令执行漏洞主要是基于一些函数的参数过滤不严导致的。可以执行命令的函数有system()  exec()  shell_exec()   passthru()  pcntl_exec()   popen()  proc_open  一共七个函数，另外单引号也可以执行命令，不过实际上这种方式也是调用的shell_exec()函数</p>
 <p>php执行命令一般是继承webserver的权限，可以直接写入文件。</p>
 <p><strong>exec() shell_exec() passthru() system()（还有反引号）</strong></p>
 <p>这四个函数是可以直接传入命令，然后函数会返回执行结果，但是system()比较特殊，他可以直接返回并打印出来，不需要echo也可以。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">system($_GET[<span class="string">'a'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200304115817061.png" alt="image-20200304115817061"></p>
+<p><img src="https://tvax2.sinaimg.cn/large/007OtlCngy1go4etbza4rj30rw09sdg7.jpg" alt="image-20200304115817061"></p>
 <p>popen()函数和proc_open()函数不会直接返回执行结果，而是返回一个文件指针，但是命令的确是执行了。</p>
 <p>popen()函数有两个参数，第一个是要执行的命令，第二个是指针文件的连接模式。（r，w分别是读和写）</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">popen(<span class="string">"whoami &gt;&gt; D:/1.txt"</span>,<span class="string">"w"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -243,9 +243,9 @@
 <p>这个是将whoami执行出来的命令输出到D盘的1.txt文件中，可以在d盘中的1.txt中找到。</p>
 <h3 id="常用的绕过"><a href="#常用的绕过" class="headerlink" title="常用的绕过"></a>常用的绕过</h3><h4 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h4><p><code>&lt;</code>符号</p>
 <p>重定向符号，使用<code>cat</code>命令从<code>hello.txt</code>中读出</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223001955133.png" alt="image-20210223001955133"></p>
+<p><img src="https://tva4.sinaimg.cn/large/007OtlCngy1go4etx4kssj30i5038my8.jpg" alt="image-20210223001955133"></p>
 <p><code>${IFS},$IFS$9</code></p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223002823380.png" alt="image-20210223002823380"></p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCngy1go4eu9oitlj30kf05sq5v.jpg" alt="image-20210223002823380"></p>
 <p>IFS 是 shell 的特殊环境变量，shell 根据 IFS 的值，默认是 space, tab, newline 来拆解读入的变量，然后对特殊字符进行处理，最后重新组合赋值给该变量。</p>
 <p>${IFS},$IFS,$IFS$9，首先$IFS在linux下表示分隔符，单纯的cat$IFShello.txt，$IFS与hello.txt没有边界，所以导致输不出来结果，然而如果加一个{}就固定了变量名，同理在后面加个$可以起到截断的作用，而且也不必是$9,其余1-8也可以。</p>
 <p><code>%09</code></p>
@@ -254,18 +254,18 @@
 <p>换行与回车符号</p>
 <p><code>;</code>符号</p>
 <p>在 shell 中，使用连续指令功能的符号就是”分号</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013226738.png" alt="image-20210223013226738"></p>
+<p><img src="https://tvax1.sinaimg.cn/large/007OtlCngy1go4eulj42fj30kv01wmxr.jpg" alt="image-20210223013226738"></p>
 <p><code>&amp;&amp;</code> 符号<br>前一个命令执行成功才会执行下一条命令<br><code>||</code> 符号<br>前一个命令执行失败才会执行下一条命令</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223013607080.png" alt="image-20210223013607080"></p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCngy1go4euzadmbj30k304pjso.jpg" alt="image-20210223013607080"></p>
 <p><code>&amp;</code> 符号<br>表示将前一个命令设置进入后台<br><code>|</code> 符号<br>管道符，将前一个命令的输出作为后一个命令的输入</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014113106.png" alt="image-20210223014113106"></p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCngy1go4eve454fj30hi03jdh2.jpg" alt="image-20210223014113106"></p>
 <h4 id="黑名单"><a href="#黑名单" class="headerlink" title="黑名单"></a>黑名单</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v&#x3D;hel;x&#x3D;lo;cat $v$x</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223014519951.png" alt="image-20210223014519951"></p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCngy1go4evpk8z2j30ks02xabk.jpg" alt="image-20210223014519951"></p>
 <p>编码绕过</p>
-<p><img src="/2021/02/22/RCE/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210223015127919.png" alt="image-20210223015127919"></p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCngy1go4ew2i1dhj30jd03gwfl.jpg" alt="image-20210223015127919"></p>
 
       
 
