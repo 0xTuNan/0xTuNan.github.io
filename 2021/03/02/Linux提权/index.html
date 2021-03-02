@@ -14,13 +14,13 @@
 <meta property="og:url" content="http://yoursite.com/2021/03/02/Linux%E6%8F%90%E6%9D%83/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
 <meta property="og:description" content="Linux suid sudo提权">
-<meta property="og:image" content="http://yoursite.com/2021/03/02/Linux%E6%8F%90%E6%9D%83/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210301093326048.png">
-<meta property="og:image" content="http://yoursite.com/2021/03/02/Linux%E6%8F%90%E6%9D%83/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210302202647137.png">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCngy1go5x7lpoqqj30f202oq2x.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007OtlCngy1go5x7tf6xmj30p20f5t9a.jpg">
 <meta property="article:published_time" content="2021-03-02T14:14:15.000Z">
-<meta property="article:modified_time" content="2021-03-02T14:15:49.804Z">
+<meta property="article:modified_time" content="2021-03-02T14:17:53.178Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/03/02/Linux%E6%8F%90%E6%9D%83/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210301093326048.png">
+<meta name="twitter:image" content="https://tvax4.sinaimg.cn/large/007OtlCngy1go5x7lpoqqj30f202oq2x.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -174,7 +174,7 @@
 <a id="more"></a>
 
 <p>当成功通过web端口服务渗透时，我们获取的一般是www-data权限。一些敏感的操作，例如无法读取/root下的重要文件，无法添加用户，开端口等等。</p>
-<h2 id="suid是什么"><a href="#suid是什么" class="headerlink" title="suid是什么"></a>suid是什么</h2><p><img src="/2021/03/02/Linux%E6%8F%90%E6%9D%83/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210301093326048.png" alt="image-20210301093326048"></p>
+<h2 id="suid是什么"><a href="#suid是什么" class="headerlink" title="suid是什么"></a>suid是什么</h2><p><img src="https://tvax4.sinaimg.cn/large/007OtlCngy1go5x7lpoqqj30f202oq2x.jpg" alt="image-20210301093326048"></p>
 <p>什么是suid？suid全称是<strong>S</strong>et owner <strong>U</strong>ser <strong>ID</strong> up on execution。这是Linux给可执行文件的一个属性，因为有的文件或命令执行的时候需要使用root权限，但是为了方便就引入一个suid，即上面的s属性，当其他用户执行此文件的时候，就会以root身份执行。</p>
 <p>这里就涉及到了Effective UID和Real UID以及Saved UID</p>
 <ul>
@@ -188,7 +188,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F; -perm -u&#x3D;s 2&gt;&#x2F;dev&#x2F;null</span><br></pre></td></tr></table></figure>
 
 <p>寻找到全部的带有suid的文件</p>
-<p><img src="/2021/03/02/Linux%E6%8F%90%E6%9D%83/C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210302202647137.png" alt="image-20210302202647137"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007OtlCngy1go5x7tf6xmj30p20f5t9a.jpg" alt="image-20210302202647137"></p>
 <h3 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap --interactive</span><br></pre></td></tr></table></figure>
 
 <p>使用nmap的udp或tcp syn扫描时，需要用到root权限，所以有些管理员图方便会直接给namp上s权限，而nmap 5.20(使用nmap -v查看nmap版本)之前有一个interactive交互模式(nmap –interactive)，在nmap effective uid为0时，可以通过这个模式获得root权限交互式命令行，成功提权。</p>
