@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>TuNan&#39;s Blogs</title>
+  <title>Java类加载机制 | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="Java类加载机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java类加载机制">
+<meta property="og:url" content="http://yoursite.com/2021/03/07/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="Java类加载机制">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gobjzpkm9tj30tp0jpgnb.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gobllxzgpaj30nt0h2aaq.jpg">
+<meta property="article:published_time" content="2021-03-07T10:40:28.000Z">
+<meta property="article:modified_time" content="2021-03-07T12:58:23.018Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gobjzpkm9tj30tp0jpgnb.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -143,35 +150,84 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-浏览器解码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Java类加载机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">浏览器解码</a>
+    <h1 class="article-title" itemprop="name">
+      Java类加载机制
     </h1>
   
 
         
-        <a href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-10-23T05:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
+        <a href="/2021/03/07/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2021-03-07T10:40:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="浏览器的解码规则"><a href="#浏览器的解码规则" class="headerlink" title="浏览器的解码规则"></a>浏览器的解码规则</h2><ul>
-<li><p>HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树</p></li></ul>
-        
-          <a class="article-more-a" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/#more">more >></a>
-        
+        <p>Java类加载机制</p>
+<a id="more"></a>
+
+<p>JVM架构图</p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gobjzpkm9tj30tp0jpgnb.jpg" alt="image-20210307191306903"></p>
+<h2 id="Java文件运行"><a href="#Java文件运行" class="headerlink" title="Java文件运行"></a>Java文件运行</h2><p>java在运行时需要把我们写的<code>.java</code>文件进行编译为<code>.class</code>文件才可以被<code>JVM</code>虚拟机运行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Main.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SeeHello test = <span class="keyword">new</span> SeeHello();</span><br><span class="line">        test.hello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//SeeHello.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeeHello</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name = <span class="string">"Tunan"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">18</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello "</span>+<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译<code>Main.java</code>：<code>javac Main.java</code>可以看到生成了<code>Main.class</code>.</p>
+<h2 id="ClassLoader是什么"><a href="#ClassLoader是什么" class="headerlink" title="ClassLoader是什么"></a>ClassLoader是什么</h2><p>当程序在运行时，即会调用该程序的一个入口函数(main函数)来调用系统的相关功能，而这些功能都被封装在不同的 class 文件当中，所以经常要从这个 class 文件中要调用另外一个 class 文件中的方法，如果另外一个文件不存在的，则会引发系统异常。而程序在启动的时候，并不会一次性加载程序所要用的所有class文件，而是根据程序的需要，通过Java的类加载机制（ClassLoader）来动态加载某个 class 文件到内存当中的，从而只有 class 文件被载入到了内存之后，才能被其它 class 所引用。</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><ul>
+<li>负责将 Class 加载到 JVM 中</li>
+<li>审查每个类由谁加载（父优先的等级加载机制）</li>
+<li>将 Class 字节码重新解析成 JVM 统一要求的对象格式</li>
+</ul>
+<h2 id="ClassLoader等级加载制度"><a href="#ClassLoader等级加载制度" class="headerlink" title="ClassLoader等级加载制度"></a>ClassLoader等级加载制度</h2><p>Java默认提供的三个ClassLoader</p>
+<ul>
+<li><p>BootStrap ClassLoader(引导类加载器)</p>
+<p>称为启动类加载器，是Java类加载层次中最顶层的类加载器，负责加载JDK中的核心类库</p>
+</li>
+<li><p>Extension ClassLoader(扩展类加载器)</p>
+<p>负责加载Java的扩展类库</p>
+</li>
+<li><p>App ClassLoader(系统类加载器) 默认的加载器。</p>
+<p>负责加载应用程序classpath目录下的所有jar和class文件</p>
+</li>
+</ul>
+<p>除了引导类加载器（BootStrap ClassLoader）之外，所有的类加载器都有一个父类加载器，对于系统提供的类加载器来说，系统类加载器(如：AppClassLoader)的父类加载器是扩展类加载器（EtxClassLoader），而扩展类加载器的父类加载器是引导类加载器；对于开发人员编写的类加载器(User ClassLoader)来说，其父类加载器是加载此类加载器 Java 类的类加载器。一般来说是APPClassLoader。</p>
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gobllxzgpaj30nt0h2aaq.jpg" alt="image-20210307200909857"></p>
+<h2 id="ClassLoader加载类原理"><a href="#ClassLoader加载类原理" class="headerlink" title="ClassLoader加载类原理"></a>ClassLoader加载类原理</h2><h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><p>ClassLoader使用的是双亲委托机制来搜索加载类的，每个ClassLoader实例都有一个父类加载器(并不是继承的关系)，当一个类加载器收到了一个类加载的请求，它并不会直接去加载，而是交给父类加载器去加载，每一个都是这样的。因此所有的加载请求最终都应该传送到<code>BootStrap ClassLoader</code>里面去，只有当父加载器反馈自己无法完成这个加载请求，那么才会让子类去加载。</p>
+<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><ul>
+<li>这样就避免了加载多个相同字节码的问题，例如我们使用<code>System.out.println()</code>实际我们需要一个 System 的 Class 对象，并且只需要一份，如果不使用委托机制，而是自己加载自己的，那么就会在一个类加载一次这个字节码。</li>
+<li>保证基础类不会被篡改而造成安全问题。例如如果不使用这种机制的话，我们自己也可以写一个String类型从而动态替代java核心api中定义的类型。</li>
+</ul>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -180,16 +236,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/03/07/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/07/Java%E5%8F%8D%E5%B0%84(%E4%B8%80)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java反射(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -204,612 +319,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HTTP与HTTPS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">HTTP与HTTPS</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
-  	<time datetime="2020-09-19T03:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTTP为什么不安全"><a href="#HTTP为什么不安全" class="headerlink" title="HTTP为什么不安全"></a>HTTP为什么不安全</h2>
-        
-          <a class="article-more-a" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java文件运行"><span class="toc-number">1.</span> <span class="toc-text">Java文件运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ClassLoader是什么"><span class="toc-number">2.</span> <span class="toc-text">ClassLoader是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用"><span class="toc-number">3.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ClassLoader等级加载制度"><span class="toc-number">4.</span> <span class="toc-text">ClassLoader等级加载制度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ClassLoader加载类原理"><span class="toc-number">5.</span> <span class="toc-text">ClassLoader加载类原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#双亲委派模型"><span class="toc-number">5.1.</span> <span class="toc-text">双亲委派模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#好处"><span class="toc-number">5.2.</span> <span class="toc-text">好处</span></a></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/15/Redis/">Redis</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/15/Redis/" class="archive-article-date">
-  	<time datetime="2020-09-15T13:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>Redis本身是键值对数据库，但是值对应多种数据结构</strong></p>
-        
-          <a class="article-more-a" href="/2020/09/15/Redis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/15/Redis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-反序列化逃逸" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">反序列化逃逸</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/" class="archive-article-date">
-  	<time datetime="2020-09-05T01:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么情况下才会存在反序列话的逃逸？？？</p>
-<p>PHP 在反序列化时，底层代码是以 <code>;</code> 作为字段的分隔，以 <code>}</code> 作为结尾(字符串除外)，并且是根据长度判断内容的。</p>
-        
-          <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SSRF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/17/SSRF/">SSRF</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/17/SSRF/" class="archive-article-date">
-  	<time datetime="2020-08-17T04:36:34.967Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="漏洞简析"><a href="#漏洞简析" class="headerlink" title="漏洞简析"></a>漏洞简析</h2><p>SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
-        
-          <a class="article-more-a" href="/2020/08/17/SSRF/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/17/SSRF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-独孤九剑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">独孤九剑</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/" class="archive-article-date">
-  	<time datetime="2020-08-15T20:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>对于第一题，过滤了<code>()=,</code>让我们加载js，首先想到使用<code>&lt;svg&gt;</code>标签，但是我直接把编码过的数据放进去，然后让它执行。</p>
-<p>HTML实体编码：<a href="https://www.qqxiuzi.cn/bianma/zifushiti.php" target="_blank" rel="noopener">https://www.qqxiuzi.cn/bianma/zifushiti.php</a></p>
-        
-          <a class="article-more-a" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一次完整的http请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">一次完整的http请求</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/" class="archive-article-date">
-  	<time datetime="2020-08-11T20:01:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-域名解析"><a href="#1-域名解析" class="headerlink" title="1.域名解析"></a>1.域名解析</h1><p>域名解析，解析出对应的IP地址。</p>
-<p><strong>那是如何解析的呢？</strong></p>
-<ol>
-<li><p>首先会搜索浏览器自身的DNS缓存</p>
-<p>为了加快访问速度，Google Chrome浏览器采用了预提DNS记录，在本地建立DNS缓存的方法，加快网站的连接速度。</p></li></ol>
-        
-          <a class="article-more-a" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-prompt(1)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/12/prompt(1)/">prompt(1)</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/12/prompt(1)/" class="archive-article-date">
-  	<time datetime="2020-08-11T19:54:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0"><a href="#0" class="headerlink" title="0"></a>0</h3><p>无任何过滤，直接将输出拼接到HTML标签中</p>
-        
-          <a class="article-more-a" href="/2020/08/12/prompt(1)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/12/prompt(1)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-XSS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/07/XSS/">XSS</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/07/XSS/" class="archive-article-date">
-  	<time datetime="2020-08-07T12:31:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><ul>
-<li><p><strong>什么是源，怎样算同源</strong></p>
-<p>源就是主机，协议，端口名的一个三元组。</p>
-<p>当两个url中，协议，主机，端口这三个一致时，这两个页面才能算同源</p></li></ul>
-        
-          <a class="article-more-a" href="/2020/08/07/XSS/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/07/XSS/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-csrf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/02/csrf/">csrf</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/02/csrf/" class="archive-article-date">
-  	<time datetime="2020-08-02T05:16:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>XSS更倾向于盗取用户信息，而CSRF更倾向于使用用户权限（用户不知情时），去达到自己的目的。</p>
-<h2 id="浏览器Cookie策略"><a href="#浏览器Cookie策略" class="headerlink" title="浏览器Cookie策略"></a>浏览器Cookie策略</h2>
-        
-          <a class="article-more-a" href="/2020/08/02/csrf/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/02/csrf/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -832,8 +367,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
