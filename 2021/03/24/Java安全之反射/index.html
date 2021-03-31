@@ -6,14 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>TuNan&#39;s Blogs</title>
+  <title>Java安全之反射 | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="Java安全之反射">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java安全之反射">
+<meta property="og:url" content="http://yoursite.com/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="Java安全之反射">
+<meta property="og:image" content="https://tvax2.sinaimg.cn/large/007OtlCnly1gp32484r1mj30r704pwea.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gp3250o14oj30w104n0sm.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp325lzmhkj30rs032dfu.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp326mc7q5j3171056wfj.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp327bs0xpj30tz05z754.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp327rnopcj30te0bijsz.jpg">
+<meta property="article:published_time" content="2021-03-23T17:50:13.000Z">
+<meta property="article:modified_time" content="2021-03-31T12:03:39.346Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tvax2.sinaimg.cn/large/007OtlCnly1gp32484r1mj30r704pwea.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -143,36 +154,130 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-基于端口的渗透测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Java安全之反射" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">基于端口的渗透测试</a>
+    <h1 class="article-title" itemprop="name">
+      Java安全之反射
     </h1>
   
 
         
-        <a href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2021-01-29T18:32:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-30</time>
+        <a href="/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/" class="archive-article-date">
+  	<time datetime="2021-03-23T17:50:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="基于端口的渗透测试"><a href="#基于端口的渗透测试" class="headerlink" title="基于端口的渗透测试"></a>基于端口的渗透测试</h1><h2 id="服务默认端口"><a href="#服务默认端口" class="headerlink" title="服务默认端口"></a>服务默认端口</h2><p>公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务；</p>
-<p>注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务；</p>
-<p>动态/私有：49152-65535，不为服务分配这些端口；</p>
-        
-          <a class="article-more-a" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/#more">more >></a>
-        
+        <p>Java安全之反射</p>
+<a id="more"></a>
+
+<h2 id="反射（一）"><a href="#反射（一）" class="headerlink" title="反射（一）"></a>反射（一）</h2><p>反射中一些极为重要的方法：</p>
+<ul>
+<li>获取类的方法：<code>forName</code></li>
+<li>实例化类对象的方法：<code>newInstance</code></li>
+<li>获取函数的方法：<code>getMethod</code></li>
+<li>执行函数的方法：<code>invoke</code></li>
+</ul>
+<p><code>forName</code>并不是获取“类”的唯⼀途径，获取类一共有三种方法，这个我在上节开头有说。</p>
+<h3 id="forName"><a href="#forName" class="headerlink" title="forName()"></a>forName()</h3><p>forname()函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(className)</span><br><span class="line"><span class="comment">// 等于</span></span><br><span class="line">Class.forName(className, <span class="keyword">true</span>, currentLoader)</span><br></pre></td></tr></table></figure>
+
+<p>看着三个参数</p>
+<p>第一个<code>className</code>，即要加载的类，第二个是是否初始化类，第三个是<code>ClassLoader</code>.</p>
+<p>类初始化的顺序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="comment">//静态变量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String staticField = <span class="string">"静态变量"</span>;</span><br><span class="line">    <span class="comment">//变量</span></span><br><span class="line">    <span class="keyword">public</span> String field = <span class="string">"变量"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态初始化块</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(staticField);</span><br><span class="line">        System.out.println(<span class="string">"静态初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化块</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(field);</span><br><span class="line">        System.out.println(<span class="string">"初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"构造器"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Main test = <span class="keyword">new</span> Main();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tvax2.sinaimg.cn/large/007OtlCnly1gp32484r1mj30r704pwea.jpg" alt="image-20210326144039242"></p>
+<p>初始化顺序依次是（静态变量、静态初始化块）&gt;（变量、初始化块）&gt;构造器。</p>
+<p>修改下上面代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="comment">//静态变量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String staticField = <span class="string">"静态变量"</span>;</span><br><span class="line">    <span class="comment">//变量</span></span><br><span class="line">    <span class="keyword">public</span> String field = <span class="string">"变量"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态初始化块</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(staticField);</span><br><span class="line">        System.out.println(<span class="string">"静态初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化块</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(field);</span><br><span class="line">        System.out.println(<span class="string">"初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"构造器"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"Safe.Main"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"error"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gp3250o14oj30w104n0sm.jpg" alt="image-20210326144409642"></p>
+<p>那么也就是说，当我<code>forName()</code>变量可控时，我们就可以调用<code>static</code>中的恶意方法。从而进行攻击。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Main.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"Safe.Calc"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Calc.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calc</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        Runtime calc = Runtime.getRuntime();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            calc.exec(<span class="string">"calc"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过编写一个恶意的类（弹计算器），然后把恶意的方法放在<code>static</code>里面，当我们用<code>forName</code>执行的时候，类第一次被加载，初始化，触发恶意的方法，从而执行代码（弹出计算器）</p>
+<h2 id="反射（二）"><a href="#反射（二）" class="headerlink" title="反射（二）"></a>反射（二）</h2><p><code>$</code>的作用是寻找内部类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Main"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"tunan"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译这个java文件，会得到下面这两个文件</p>
+<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp325lzmhkj30rs032dfu.jpg" alt="image-20210327135644895"></p>
+<p>可以看到，内部类的的名称是<code>外部类$内部类名</code>，如果我们要加载这个内部类，也可以使用forName(“Main$Test”);加载它。</p>
+<p>获得类以后，我们可以继续使用反射来获取这个类中的属性、方法，也可以实例化这个类，并调用方法。</p>
+<p><code>Class.newInstance()</code>可以调用一个类的无参构造函数。但是有时候会出现报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TuNan1.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TuNan1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TuNan1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello tunan"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TuNan2.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TuNan2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">TuNan2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello tunan2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TuNan3.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TuNan3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TuNan3</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello "</span>+id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Main.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class test1 = Class.forName(<span class="string">"Safe.TuNan1"</span>);</span><br><span class="line">            Class test2 = Class.forName(<span class="string">"Safe.TuNan2"</span>);</span><br><span class="line">            Class test3 = Class.forName(<span class="string">"Safe.TuNan3"</span>);</span><br><span class="line">            test1.newInstance();</span><br><span class="line">            test2.newInstance();</span><br><span class="line">            test3.newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">打注释一个个运行</span><br></pre></td></tr></table></figure>
+
+<p>可以得到如下错误</p>
+<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp326mc7q5j3171056wfj.jpg" alt="image-20210327144913070"></p>
+<p>说的是TuNan2中的无参构造函数时<code>private</code>修饰的，所以报错了。这也是第一种常见错误。</p>
+<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp327bs0xpj30tz05z754.jpg" alt="image-20210327145210769"></p>
+<p>同时TuNan3也会报错，因为根本就没有无参构造函数，自然也没法调用了。这是第二种错误。</p>
+<p>为什么有的类的构造函数是私有的，这就涉及了java中的单例模式。这种模式，最显著的特点就是，构造函数时私有的，保证该类只有一个实例。</p>
+<p>例如<code>Runtime</code>类，我们只能通过<code>Runtime.getRuntime()</code>来获取这个类的对象。</p>
+<p>那我们应该如何调用这种类的方法呢</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class run = Class.forName(<span class="string">"java.lang.Runtime"</span>);</span><br><span class="line">            run.getMethod("exec", String.class).invoke(run.getMethod("getRuntime").invoke(run),"calc.exe");</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于<code>invoke</code>：</p>
+<ul>
+<li>如果这个方法是一个普通方法，那么第一个参数是对象</li>
+<li>如果这个方法是一个静态方法，那么第一个参数是类</li>
+</ul>
+<p>由于是单例模式，我们进去看一下源码</p>
+<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp327rnopcj30te0bijsz.jpg" alt="image-20210327155617569"></p>
+<p><code>getRuntime</code>其实返回了一个<code>currentRuntime</code>,再往上看，这其实就是<code>Runtime</code>的实例。</p>
+<p>我们先通过这个方法获取了对象，然后由于<code>invoke</code>第二个参数是方法参数也就是我们之前获取的<code>exec</code>方法的参数，传入，执行该方法，弹出计算器。</p>
+<h2 id="反射（三）"><a href="#反射（三）" class="headerlink" title="反射（三）"></a>反射（三）</h2><p>p牛在上一节提了两个问题</p>
+<ul>
+<li>如果一个类没有无参构造方法，也没有类似单例模式里的静态方法，我们怎样通过反射实例化该类呢？ </li>
+<li>如果一个方法或构造方法是私有方法，我们是否能执行它呢？</li>
+</ul>
+<p>这其实也不是什么问题，如果之前有看过反射教程的话，应该就可以很快解决这俩个问题。</p>
+<hr>
+<ul>
+<li><code>getConstructor(Class...)</code>：获取某个<code>public</code>的<code>Constructor</code>；</li>
+<li><code>getDeclaredConstructor(Class...)</code>：获取某个<code>Constructor</code>；</li>
+<li><code>getConstructors()</code>：获取所有<code>public</code>的<code>Constructor</code>；</li>
+<li><code>getDeclaredConstructors()</code>：获取所有<code>Constructor</code>。</li>
+<li><strong>调用非<code>public</code>的<code>Constructor</code>时，必须首先通过<code>setAccessible(true)</code>设置允许访问。<code>setAccessible(true)</code>可能会失败。</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">"java.lang.ProcessBuilder"</span>);</span><br><span class="line">((ProcessBuilder) clazz.getConstructor(List.class).newInstance(Arrays.asList("calc.exe"))).star</span><br><span class="line">t();</span><br></pre></td></tr></table></figure>
+
+<p>有时候我们需要进行强制转化，来实现相应的功能，但是强制转换也不是唯一的路，其实我们也可以纯使用反射来做到。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">"java.lang.ProcessBuilder"</span>);</span><br><span class="line">clazz.getMethod(<span class="string">"start"</span>).invoke(clazz.getConstructor(List<span class="class">.<span class="keyword">class</span>).<span class="title">newInstance</span>(</span></span><br><span class="line">Arrays.asList("calc.exe")));</span><br></pre></td></tr></table></figure>
+
+<p>先使用forname获取到类，然后通过getMethod获取方法，在使用invoke执行。</p>
+<p>一个技巧</p>
+<p>对于反射来说，如果要获取的目标函数里包含可变长参数，那么我们认为它是数组就行了。</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -181,16 +286,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/22/Java%E5%8F%8D%E5%B0%84%E5%88%9D%E8%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java反射初识</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -205,610 +369,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-golang-爬虫" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/">golang 爬虫</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/" class="archive-article-date">
-  	<time datetime="2021-01-28T06:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>goalng的学习官方文档 <a href="https://tour.go-zh.org/welcome/1" target="_blank" rel="noopener">goalng中文教程</a></p>
-<h2 id="发起请求"><a href="#发起请求" class="headerlink" title="发起请求"></a>发起请求</h2><p>使用Golang原生http库</p>
-        
-          <a class="article-more-a" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射（一）"><span class="toc-number">1.</span> <span class="toc-text">反射（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#forName"><span class="toc-number">1.1.</span> <span class="toc-text">forName()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射（二）"><span class="toc-number">2.</span> <span class="toc-text">反射（二）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射（三）"><span class="toc-number">3.</span> <span class="toc-text">反射（三）</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-浏览器解码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">浏览器解码</a>
-    </h1>
-  
-
-        
-        <a href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-10-23T05:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="浏览器的解码规则"><a href="#浏览器的解码规则" class="headerlink" title="浏览器的解码规则"></a>浏览器的解码规则</h2><ul>
-<li><p>HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树</p></li></ul>
-        
-          <a class="article-more-a" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HTTP与HTTPS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">HTTP与HTTPS</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
-  	<time datetime="2020-09-19T03:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTTP为什么不安全"><a href="#HTTP为什么不安全" class="headerlink" title="HTTP为什么不安全"></a>HTTP为什么不安全</h2>
-        
-          <a class="article-more-a" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/15/Redis/">Redis</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/15/Redis/" class="archive-article-date">
-  	<time datetime="2020-09-15T13:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>Redis本身是键值对数据库，但是值对应多种数据结构</strong></p>
-        
-          <a class="article-more-a" href="/2020/09/15/Redis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/15/Redis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-反序列化逃逸" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">反序列化逃逸</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/" class="archive-article-date">
-  	<time datetime="2020-09-05T01:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么情况下才会存在反序列话的逃逸？？？</p>
-<p>PHP 在反序列化时，底层代码是以 <code>;</code> 作为字段的分隔，以 <code>}</code> 作为结尾(字符串除外)，并且是根据长度判断内容的。</p>
-        
-          <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SSRF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/17/SSRF/">SSRF</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/17/SSRF/" class="archive-article-date">
-  	<time datetime="2020-08-17T04:36:34.967Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="漏洞简析"><a href="#漏洞简析" class="headerlink" title="漏洞简析"></a>漏洞简析</h2><p>SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
-        
-          <a class="article-more-a" href="/2020/08/17/SSRF/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/17/SSRF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-独孤九剑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">独孤九剑</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/" class="archive-article-date">
-  	<time datetime="2020-08-15T20:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>对于第一题，过滤了<code>()=,</code>让我们加载js，首先想到使用<code>&lt;svg&gt;</code>标签，但是我直接把编码过的数据放进去，然后让它执行。</p>
-<p>HTML实体编码：<a href="https://www.qqxiuzi.cn/bianma/zifushiti.php" target="_blank" rel="noopener">https://www.qqxiuzi.cn/bianma/zifushiti.php</a></p>
-        
-          <a class="article-more-a" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/16/%E7%8B%AC%E5%AD%A4%E4%B9%9D%E5%89%91/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一次完整的http请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">一次完整的http请求</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/" class="archive-article-date">
-  	<time datetime="2020-08-11T20:01:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-域名解析"><a href="#1-域名解析" class="headerlink" title="1.域名解析"></a>1.域名解析</h1><p>域名解析，解析出对应的IP地址。</p>
-<p><strong>那是如何解析的呢？</strong></p>
-<ol>
-<li><p>首先会搜索浏览器自身的DNS缓存</p>
-<p>为了加快访问速度，Google Chrome浏览器采用了预提DNS记录，在本地建立DNS缓存的方法，加快网站的连接速度。</p></li></ol>
-        
-          <a class="article-more-a" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/12/%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84http%E8%AF%B7%E6%B1%82/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-prompt(1)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/12/prompt(1)/">prompt(1)</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/12/prompt(1)/" class="archive-article-date">
-  	<time datetime="2020-08-11T19:54:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="0"><a href="#0" class="headerlink" title="0"></a>0</h3><p>无任何过滤，直接将输出拼接到HTML标签中</p>
-        
-          <a class="article-more-a" href="/2020/08/12/prompt(1)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/12/prompt(1)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -831,8 +417,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
