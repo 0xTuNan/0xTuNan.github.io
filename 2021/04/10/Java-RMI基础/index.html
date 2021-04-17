@@ -6,25 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java安全之反射 | TuNan&#39;s Blogs</title>
+  <title>Java RMI基础 | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java安全之反射">
+  <meta name="description" content="RMI基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java安全之反射">
-<meta property="og:url" content="http://yoursite.com/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/index.html">
+<meta property="og:title" content="Java RMI基础">
+<meta property="og:url" content="http://yoursite.com/2021/04/10/Java-RMI%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
-<meta property="og:description" content="Java安全之反射">
-<meta property="og:image" content="https://tvax2.sinaimg.cn/large/007OtlCnly1gp32484r1mj30r704pwea.jpg">
-<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gp3250o14oj30w104n0sm.jpg">
-<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp325lzmhkj30rs032dfu.jpg">
-<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp326mc7q5j3171056wfj.jpg">
-<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp327bs0xpj30tz05z754.jpg">
-<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gp327rnopcj30te0bijsz.jpg">
-<meta property="article:published_time" content="2021-03-23T17:50:13.000Z">
-<meta property="article:modified_time" content="2021-03-31T12:03:39.346Z">
+<meta property="og:description" content="RMI基础">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gpeokzvwqdj30pp0ejdie.jpg">
+<meta property="og:image" content="https://tvax2.sinaimg.cn/large/007OtlCnly1gpeolj64n2j30p90gfn3r.jpg">
+<meta property="og:image" content="https://tva3.sinaimg.cn/large/007OtlCnly1gpeoltxj4sj30cy0eh74h.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gpeom5jwr4j30ki05it8t.jpg">
+<meta property="article:published_time" content="2021-04-10T07:16:39.000Z">
+<meta property="article:modified_time" content="2021-04-10T07:30:43.009Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tvax2.sinaimg.cn/large/007OtlCnly1gp32484r1mj30r704pwea.jpg">
+<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gpeokzvwqdj30pp0ejdie.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -154,106 +152,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java安全之反射" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java-RMI基础" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java安全之反射
+      Java RMI基础
     </h1>
   
 
         
-        <a href="/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/" class="archive-article-date">
-  	<time datetime="2021-03-23T17:50:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
+        <a href="/2021/04/10/Java-RMI%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2021-04-10T07:16:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Java安全之反射</p>
+        <p>RMI基础</p>
 <a id="more"></a>
 
-<h2 id="反射（一）"><a href="#反射（一）" class="headerlink" title="反射（一）"></a>反射（一）</h2><p>反射中一些极为重要的方法：</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>RMI是Remote Method Invocation（远程方法调用）的缩写。它可以实现一个JVM中的代码（客户端）通过网络远程调用另一个JVM（服务端）的某个方法。</p>
+<p>具体的实现方法是，服务器提供具体的类和方法，然后客户端获得远程类的一个代理，然后通过这个代理调用远程对象的方法，方法的参数是通过序列化与反序列化的方式传递的。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>Rmi有三个主体</p>
 <ul>
-<li>获取类的方法：<code>forName</code></li>
-<li>实例化类对象的方法：<code>newInstance</code></li>
-<li>获取函数的方法：<code>getMethod</code></li>
-<li>执行函数的方法：<code>invoke</code></li>
+<li>Client（客户端）：可以远程调用服务段的方法</li>
+<li>Server（服务端）：远程方法的提供者，代码被执行的地方，执行结束之后，返回执行的结果给客户端</li>
+<li>Registry（注册表）：存放着远程对象的位置（ip、端口、标识符），相当于一个字典，用于客户端寻找可以执行的方法</li>
 </ul>
-<p><code>forName</code>并不是获取“类”的唯⼀途径，获取类一共有三种方法，这个我在上节开头有说。</p>
-<h3 id="forName"><a href="#forName" class="headerlink" title="forName()"></a>forName()</h3><p>forname()函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(className)</span><br><span class="line"><span class="comment">// 等于</span></span><br><span class="line">Class.forName(className, <span class="keyword">true</span>, currentLoader)</span><br></pre></td></tr></table></figure>
-
-<p>看着三个参数</p>
-<p>第一个<code>className</code>，即要加载的类，第二个是是否初始化类，第三个是<code>ClassLoader</code>.</p>
-<p>类初始化的顺序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="comment">//静态变量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String staticField = <span class="string">"静态变量"</span>;</span><br><span class="line">    <span class="comment">//变量</span></span><br><span class="line">    <span class="keyword">public</span> String field = <span class="string">"变量"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态初始化块</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(staticField);</span><br><span class="line">        System.out.println(<span class="string">"静态初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化块</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(field);</span><br><span class="line">        System.out.println(<span class="string">"初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"构造器"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Main test = <span class="keyword">new</span> Main();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://tvax2.sinaimg.cn/large/007OtlCnly1gp32484r1mj30r704pwea.jpg" alt="image-20210326144039242"></p>
-<p>初始化顺序依次是（静态变量、静态初始化块）&gt;（变量、初始化块）&gt;构造器。</p>
-<p>修改下上面代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="comment">//静态变量</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String staticField = <span class="string">"静态变量"</span>;</span><br><span class="line">    <span class="comment">//变量</span></span><br><span class="line">    <span class="keyword">public</span> String field = <span class="string">"变量"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//静态初始化块</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(staticField);</span><br><span class="line">        System.out.println(<span class="string">"静态初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化块</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(field);</span><br><span class="line">        System.out.println(<span class="string">"初始化块"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"构造器"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"Safe.Main"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"error"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gp3250o14oj30w104n0sm.jpg" alt="image-20210326144409642"></p>
-<p>那么也就是说，当我<code>forName()</code>变量可控时，我们就可以调用<code>static</code>中的恶意方法。从而进行攻击。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Main.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"Safe.Calc"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Calc.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calc</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        Runtime calc = Runtime.getRuntime();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            calc.exec(<span class="string">"calc"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过编写一个恶意的类（弹计算器），然后把恶意的方法放在<code>static</code>里面，当我们用<code>forName</code>执行的时候，类第一次被加载，初始化，触发恶意的方法，从而执行代码（弹出计算器）</p>
-<h2 id="反射（二）"><a href="#反射（二）" class="headerlink" title="反射（二）"></a>反射（二）</h2><p><code>$</code>的作用是寻找内部类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Main"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"tunan"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>编译这个java文件，会得到下面这两个文件</p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp325lzmhkj30rs032dfu.jpg" alt="image-20210327135644895"></p>
-<p>可以看到，内部类的的名称是<code>外部类$内部类名</code>，如果我们要加载这个内部类，也可以使用forName(“Main$Test”);加载它。</p>
-<p>获得类以后，我们可以继续使用反射来获取这个类中的属性、方法，也可以实例化这个类，并调用方法。</p>
-<p><code>Class.newInstance()</code>可以调用一个类的无参构造函数。但是有时候会出现报错</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TuNan1.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TuNan1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TuNan1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello tunan"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TuNan2.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TuNan2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">TuNan2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello tunan2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TuNan3.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TuNan3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TuNan3</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello "</span>+id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//Main.java</span></span><br><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class test1 = Class.forName(<span class="string">"Safe.TuNan1"</span>);</span><br><span class="line">            Class test2 = Class.forName(<span class="string">"Safe.TuNan2"</span>);</span><br><span class="line">            Class test3 = Class.forName(<span class="string">"Safe.TuNan3"</span>);</span><br><span class="line">            test1.newInstance();</span><br><span class="line">            test2.newInstance();</span><br><span class="line">            test3.newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">打注释一个个运行</span><br></pre></td></tr></table></figure>
-
-<p>可以得到如下错误</p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp326mc7q5j3171056wfj.jpg" alt="image-20210327144913070"></p>
-<p>说的是TuNan2中的无参构造函数时<code>private</code>修饰的，所以报错了。这也是第一种常见错误。</p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp327bs0xpj30tz05z754.jpg" alt="image-20210327145210769"></p>
-<p>同时TuNan3也会报错，因为根本就没有无参构造函数，自然也没法调用了。这是第二种错误。</p>
-<p>为什么有的类的构造函数是私有的，这就涉及了java中的单例模式。这种模式，最显著的特点就是，构造函数时私有的，保证该类只有一个实例。</p>
-<p>例如<code>Runtime</code>类，我们只能通过<code>Runtime.getRuntime()</code>来获取这个类的对象。</p>
-<p>那我们应该如何调用这种类的方法呢</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Safe;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class run = Class.forName(<span class="string">"java.lang.Runtime"</span>);</span><br><span class="line">            run.getMethod("exec", String.class).invoke(run.getMethod("getRuntime").invoke(run),"calc.exe");</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>关于<code>invoke</code>：</p>
+<p>其中Server与Registry可以在同一服务器上实现，也可以布置在不同服务器上。一个rmi的调用流程如下</p>
 <ul>
-<li>如果这个方法是一个普通方法，那么第一个参数是对象</li>
-<li>如果这个方法是一个静态方法，那么第一个参数是类</li>
+<li>先启动服务端，监听一个端口，一般是1099端口</li>
+<li>Server向Registry注册远程对象</li>
+<li>Client从Registry获取远程对象代理信息，然后通过这个代理调用方法，Server端的代理会收到Client端的调用的方法、参数等，然后代理执行对应方法，并将结果通过网络返回给Client。</li>
 </ul>
-<p>由于是单例模式，我们进去看一下源码</p>
-<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gp327rnopcj30te0bijsz.jpg" alt="image-20210327155617569"></p>
-<p><code>getRuntime</code>其实返回了一个<code>currentRuntime</code>,再往上看，这其实就是<code>Runtime</code>的实例。</p>
-<p>我们先通过这个方法获取了对象，然后由于<code>invoke</code>第二个参数是方法参数也就是我们之前获取的<code>exec</code>方法的参数，传入，执行该方法，弹出计算器。</p>
-<h2 id="反射（三）"><a href="#反射（三）" class="headerlink" title="反射（三）"></a>反射（三）</h2><p>p牛在上一节提了两个问题</p>
-<ul>
-<li>如果一个类没有无参构造方法，也没有类似单例模式里的静态方法，我们怎样通过反射实例化该类呢？ </li>
-<li>如果一个方法或构造方法是私有方法，我们是否能执行它呢？</li>
-</ul>
-<p>这其实也不是什么问题，如果之前有看过反射教程的话，应该就可以很快解决这俩个问题。</p>
-<hr>
-<ul>
-<li><code>getConstructor(Class...)</code>：获取某个<code>public</code>的<code>Constructor</code>；</li>
-<li><code>getDeclaredConstructor(Class...)</code>：获取某个<code>Constructor</code>；</li>
-<li><code>getConstructors()</code>：获取所有<code>public</code>的<code>Constructor</code>；</li>
-<li><code>getDeclaredConstructors()</code>：获取所有<code>Constructor</code>。</li>
-<li><strong>调用非<code>public</code>的<code>Constructor</code>时，必须首先通过<code>setAccessible(true)</code>设置允许访问。<code>setAccessible(true)</code>可能会失败。</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">"java.lang.ProcessBuilder"</span>);</span><br><span class="line">((ProcessBuilder) clazz.getConstructor(List.class).newInstance(Arrays.asList("calc.exe"))).star</span><br><span class="line">t();</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gpeokzvwqdj30pp0ejdie.jpg" alt="image-20210410151933116"></p>
+<p><img src="https://tvax2.sinaimg.cn/large/007OtlCnly1gpeolj64n2j30p90gfn3r.jpg" alt="image-20210410152033941"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>项目结构</p>
+<p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1gpeoltxj4sj30cy0eh74h.jpg" alt="image-20210410145716778"></p>
+<p>先创建一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.rmi.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Hello</span> <span class="keyword">extends</span> <span class="title">Remote</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">welcome</span><span class="params">(String name)</span> <span class="keyword">throws</span> RemoteException</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这个接口必须继承Remote接口，其中需要远程调用的方法必须抛出RemoteException异常</span></span><br></pre></td></tr></table></figure>
 
-<p>有时候我们需要进行强制转化，来实现相应的功能，但是强制转换也不是唯一的路，其实我们也可以纯使用反射来做到。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">"java.lang.ProcessBuilder"</span>);</span><br><span class="line">clazz.getMethod(<span class="string">"start"</span>).invoke(clazz.getConstructor(List<span class="class">.<span class="keyword">class</span>).<span class="title">newInstance</span>(</span></span><br><span class="line">Arrays.asList("calc.exe")));</span><br></pre></td></tr></table></figure>
+<p>服务端实现这个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> model.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> model.Hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.rmi.*;</span><br><span class="line"><span class="keyword">import</span> java.rmi.server.UnicastRemoteObject;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Helloimpl</span> <span class="keyword">extends</span> <span class="title">UnicastRemoteObject</span> <span class="keyword">implements</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Helloimpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">welcome</span><span class="params">(String name)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello "</span>+name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//接口的实现类需要继承UnicastRemoteObject，同样的方法需要抛出RemoteException错误</span></span><br><span class="line"><span class="comment">//HelloImpl是服务器端实际实现的方法，客户端通过RMI实际调用的就是HelloImpl</span></span><br></pre></td></tr></table></figure>
 
-<p>先使用forname获取到类，然后通过getMethod获取方法，在使用invoke执行。</p>
-<p>一个技巧</p>
-<p>对于反射来说，如果要获取的目标函数里包含可变长参数，那么我们认为它是数组就行了。</p>
+<p>Server实现的是注册功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> model.Hello;</span><br><span class="line"><span class="keyword">import</span> model.impl.Helloimpl;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException</span>&#123;</span><br><span class="line">        <span class="comment">// 创建对象</span></span><br><span class="line">        Hello hello = <span class="keyword">new</span> Helloimpl();</span><br><span class="line">        <span class="comment">// 创建注册表</span></span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">        <span class="comment">// 绑定对象到注册表，并给他取名为hello</span></span><br><span class="line">        registry.rebind(<span class="string">"hello"</span>, hello);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>client通过localhost的1099端口找到hello实例进行调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> client;</span><br><span class="line"><span class="keyword">import</span> model.Hello;</span><br><span class="line"><span class="keyword">import</span> java.rmi.NotBoundException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException, NotBoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 获取到注册表的代理</span></span><br><span class="line">        Registry registry = LocateRegistry.getRegistry(<span class="string">"localhost"</span>, <span class="number">1099</span>);</span><br><span class="line">        <span class="comment">// 利用注册表的代理去查询远程注册表中名为hello的对象</span></span><br><span class="line">        Hello hello = (Hello) registry.lookup(<span class="string">"hello"</span>);</span><br><span class="line">        <span class="comment">// 调用远程方法</span></span><br><span class="line">        System.out.println(hello.welcome(<span class="string">"tunan"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用结果"><a href="#调用结果" class="headerlink" title="调用结果"></a>调用结果</h2><p>先启动Server注册实例，然后再运行Client即可看见调用的结果。</p>
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gpeom5jwr4j30ki05it8t.jpg" alt="image-20210410151022430"></p>
+<p>参考：<a href="https://github.com/Maskhe/javasec/blob/master/6.java%20rmi%E5%9F%BA%E7%A1%80.md" target="_blank" rel="noopener">https://github.com/Maskhe/javasec/blob/master/6.java%20rmi%E5%9F%BA%E7%A1%80.md</a></p>
 
       
 
@@ -333,7 +287,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/04/10/Java-RMI%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -347,18 +301,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/04/10/Java-RMI%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/04/17/Webshell-%E5%85%8D%E6%9D%80/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Java RMI基础
+          Webshell 免杀
         
       </div>
     </a>
   
   
-    <a href="/2021/03/22/Java%E5%8F%8D%E5%B0%84%E5%88%9D%E8%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java反射初识</div>
+    <a href="/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java安全之反射</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -385,7 +339,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射（一）"><span class="toc-number">1.</span> <span class="toc-text">反射（一）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#forName"><span class="toc-number">1.1.</span> <span class="toc-text">forName()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射（二）"><span class="toc-number">2.</span> <span class="toc-text">反射（二）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射（三）"><span class="toc-number">3.</span> <span class="toc-text">反射（三）</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式"><span class="toc-number">2.</span> <span class="toc-text">实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用结果"><span class="toc-number">4.</span> <span class="toc-text">调用结果</span></a></li></ol>
                     </div>
                 </span>
             </div>
