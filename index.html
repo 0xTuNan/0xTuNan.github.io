@@ -145,6 +145,121 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Golang-Web" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/08/Golang-Web/">Golang Web</a>
+    </h1>
+  
+
+        
+        <a href="/2021/06/08/Golang-Web/" class="archive-article-date">
+  	<time datetime="2021-06-08T15:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>golang web</p>
+<p>因为作业原因，得学习下怎么用golang搞一个web窗口，就记录下吧，以后可能有用呢。</p>
+<h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">"fmt"</span></span><br><span class="line"><span class="string">"net/http"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">seeHello</span><span class="params">()</span> <span class="title">string</span></span>&#123;</span><br><span class="line">	test := <span class="string">"hello world"</span></span><br><span class="line">	<span class="keyword">return</span> test</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myWeb</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">	fmt.Fprintln(w,seeHello())</span><br><span class="line">	fmt.Fprintf(w, <span class="string">"hello tunan"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">"/"</span>, myWeb)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"服务器即将开启，访问地址 http://localhost:8080"</span>)</span><br><span class="line"></span><br><span class="line">	err := http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"服务器开启错误: "</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>万物起源<code>hello world</code></p>
+<p>运行之后，可以在浏览器本地的8080端口，看到打印出来的<code>hello tunan</code>。</p>
+<p>分析下上面的代码</p>
+<h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3><p>第一句，匹配路由和处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.HandleFunc(&quot;&#x2F;&quot;, myWeb)</span><br></pre></td></tr></table></figure>
+
+<p>调用http包的HandleFunc方法，匹配一个路由到一个处理函数<code>myWeb</code>。</p>
+<p>这句代码的意思是，当通过访问地址 <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a> 时，就等同于调用了 myWeb 函数。</p>
+<p>第二句，用fmt在控制台打印一句话，纯属提示，其实并没有太大的实际意义。</p>
+<p>第三句，开启服务并且监听端口</p>
+<p>在这句，调用了<code>http</code>包中的<code>ListenAndServe</code>函数，该函数有两个参数，第一个是指定监听的端口号，第二个是指定处理请求的handler，通常这个参数填nil，表示使用默认的ServeMux作为handler。</p>
+<p>后面就是正常的错误处理了。</p>
+<h3 id="myweb函数"><a href="#myweb函数" class="headerlink" title="myweb函数"></a>myweb函数</h3><p>在<code>main</code>函数中，用<code>http.HandleFunc</code>将 <code>myWeb</code>与路由<code>/</code>匹配在一起。</p>
+<p><code>HandleFunc</code>函数定义了两个参数<code>w</code>,<code>r</code>，参数类型分别是<code>http.ResponseWriter</code>和<code>*http.Request</code>，<code>w</code>是响应留写入器，<code>r</code>是请求对象的指针。</p>
+<p><strong>响应流写入器 w</strong>: 用来写入http响应数据</p>
+<p><strong>请求对象 * r</strong>: 包含了http请求所有信息，注意，这里使用了指针，在定义参数时用<code>*</code>标记类型，说明这个参数需要的是这个类型的对象的<strong>指针</strong>。</p>
+<p>当有请求路径<code>/</code>，请求对象和响应流写入器被传递给<code>myWeb</code>函数，并由<code>myWeb</code>函数负责处理这次请求。</p>
+<p><strong>函数体</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fmt.Fprintln(w,seeHello())</span><br><span class="line">fmt.Fprintf(w, <span class="string">"hello tunan"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里我们使用的是fmt这个库的Fprintln和Fprintf函数，其实就是前面加了个F，把数据写入到<code>w</code>响应流写入器对象。<code>w</code>响应流写入器里写入的内容最后会被Response输出到用户浏览器的页面上。</p>
+<p>至于那个seeHello函数就没什么好说的了。</p>
+<h2 id="获取http请求参数"><a href="#获取http请求参数" class="headerlink" title="获取http请求参数"></a>获取http请求参数</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myWeb</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    r.ParseForm() <span class="comment">//它还将请求主体解析为表单，获得POST Form表单数据，必须先调用这个函数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> r.URL.Query() &#123;</span><br><span class="line">        fmt.Println(<span class="string">"key:"</span>, k, <span class="string">", value:"</span>, v[<span class="number">0</span>])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> r.PostForm &#123;</span><br><span class="line">        fmt.Println(<span class="string">"key:"</span>, k, <span class="string">", value:"</span>, v[<span class="number">0</span>])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Fprintln(w, <span class="string">"这是一个开始"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCngy1grb99zyy57j30zp0baq3o.jpg" alt="image-20210605160309420"></p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCngy1grb99k3rvgj30z40bddj3.jpg" alt="image-20210605160341807"></p>
+<p>这里我们看到我们已经在后端获取到了参数和值。</p>
+<h3 id="相关函数解读"><a href="#相关函数解读" class="headerlink" title="相关函数解读"></a>相关函数解读</h3><p><code>http</code>请求的所有内容，都保存在<code>http.Request</code>对象中，也就是<code>myWeb</code>获得的参数 <code>r</code> 。所以我们的请求都需要从这个r开始。</p>
+<p><code>r.ParseForm()</code></p>
+<p>ParseForm解析URL中的查询字符串，并将解析结果更新到r.Form字段。如果是Post或者Put请求ParseForm还会将body当作表单解析，并将结果既更新到r.PostForm也更新到r.Form。</p>
+<p><code>r.URL.Query()</code> 和 <code>r.PostForm</code></p>
+<p>这两个分别是URL参数对象和表单参数对象，它们都是键值对值，键的类型是字符串<code>string</code>，值的类型是<code>string</code>数组。</p>
+<p>这样我们就实现了最简单的交互。</p>
+<h2 id="动态响应数据"><a href="#动态响应数据" class="headerlink" title="动态响应数据"></a>动态响应数据</h2><p>读取HTML模版文件，用数据替换掉对应的标签，生成完整的HTML字符串，响应给浏览器，这是所有Web开发框架的常规操作。那么golang的这个功能是什么呢</p>
+<p><code>html/template</code></p>
+<p>这个包就是实现这个功能的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myWeb</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;	</span><br><span class="line">	t, _ := template.ParseFiles(<span class="string">"./index.html"</span>)</span><br><span class="line"></span><br><span class="line">	data := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"name"</span>:    <span class="string">"zeta"</span>,</span><br><span class="line">		<span class="string">"age"</span>: <span class="string">"18"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t.Execute(w, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">index.html</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello &#123;&#123;.name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123;.age&#125;&#125;岁<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tvax2.sinaimg.cn/large/007OtlCngy1grb9910zwaj30gm04ma9u.jpg" alt="image-20210605164032043"></p>
+<p>比较硬核，没办法</p>
+<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><p><code>template.ParseFiles</code></p>
+<p>ParseFiles函数创建一个模板并解析filenames指定的文件里的模板定义。返回的模板的名字是第一个文件的文件名（不含扩展名），内容为解析后的第一个文件的内容。</p>
+<p><code>Execute</code></p>
+<p>Execute方法将解析好的模板应用到data上，并将输出写入w。如果执行时出现错误，会停止执行，但有可能已经写入wr部分数据。模板可以安全的并发执行。</p>
+<p>参考</p>
+<p><a href="https://segmentfault.com/a/1190000019151901" target="_blank" rel="noopener">https://segmentfault.com/a/1190000019151901</a></p>
+<p><a href="https://studygolang.com/pkgdoc" target="_blank" rel="noopener">https://studygolang.com/pkgdoc</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/06/08/Golang-Web/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java序列化与反序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -701,71 +816,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/02/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux提权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/02/Linux%E6%8F%90%E6%9D%83/">Linux提权</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/02/Linux%E6%8F%90%E6%9D%83/" class="archive-article-date">
-  	<time datetime="2021-03-02T14:14:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Linux suid提权</p>
-        
-          <a class="article-more-a" href="/2021/03/02/Linux%E6%8F%90%E6%9D%83/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/02/Linux%E6%8F%90%E6%9D%83/">展开全文 >></a>
         </p>
       
 

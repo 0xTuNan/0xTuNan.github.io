@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2021 | TuNan&#39;s Blogs</title>
+  <title>Golang Web | TuNan&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TuNan&#39;s Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/2021/index.html">
+  <meta name="description" content="golang web 因为作业原因，得学习下怎么用golang搞一个web窗口，就记录下吧，以后可能有用呢。 hello world123456789101112131415161718192021222324252627package mainimport (&quot;fmt&quot;&quot;net&#x2F;http&quot;)func seeHello() string&amp;#123;	test :&#x3D; &quot;hello world&quot;	re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang Web">
+<meta property="og:url" content="http://yoursite.com/2021/06/08/Golang-Web/index.html">
 <meta property="og:site_name" content="TuNan&#39;s Blogs">
+<meta property="og:description" content="golang web 因为作业原因，得学习下怎么用golang搞一个web窗口，就记录下吧，以后可能有用呢。 hello world123456789101112131415161718192021222324252627package mainimport (&quot;fmt&quot;&quot;net&#x2F;http&quot;)func seeHello() string&amp;#123;	test :&#x3D; &quot;hello world&quot;	re">
+<meta property="og:image" content="https://tva2.sinaimg.cn/large/007OtlCngy1grb99zyy57j30zp0baq3o.jpg">
+<meta property="og:image" content="https://tvax3.sinaimg.cn/large/007OtlCngy1grb99k3rvgj30z40bddj3.jpg">
+<meta property="og:image" content="https://tvax2.sinaimg.cn/large/007OtlCngy1grb9910zwaj30gm04ma9u.jpg">
+<meta property="article:published_time" content="2021-06-08T15:01:21.000Z">
+<meta property="article:modified_time" content="2021-06-08T15:03:58.681Z">
 <meta property="article:author" content="TuNan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva2.sinaimg.cn/large/007OtlCngy1grb99zyy57j30zp0baq3o.jpg">
   
     <link rel="alternative" href="/atom.xml" title="TuNan&#39;s Blogs" type="application/atom+xml">
   
@@ -143,295 +151,220 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Golang-Web" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Golang Web
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/08/Golang-Web/" class="archive-article-date">
+
+        
+        <a href="/2021/06/08/Golang-Web/" class="archive-article-date">
   	<time datetime="2021-06-08T15:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-08</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/08/Golang-Web/">Golang Web</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>golang web</p>
+<p>因为作业原因，得学习下怎么用golang搞一个web窗口，就记录下吧，以后可能有用呢。</p>
+<h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">"fmt"</span></span><br><span class="line"><span class="string">"net/http"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">seeHello</span><span class="params">()</span> <span class="title">string</span></span>&#123;</span><br><span class="line">	test := <span class="string">"hello world"</span></span><br><span class="line">	<span class="keyword">return</span> test</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myWeb</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">	fmt.Fprintln(w,seeHello())</span><br><span class="line">	fmt.Fprintf(w, <span class="string">"hello tunan"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	http.HandleFunc(<span class="string">"/"</span>, myWeb)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"服务器即将开启，访问地址 http://localhost:8080"</span>)</span><br><span class="line"></span><br><span class="line">	err := http.ListenAndServe(<span class="string">":8080"</span>, <span class="literal">nil</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"服务器开启错误: "</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>万物起源<code>hello world</code></p>
+<p>运行之后，可以在浏览器本地的8080端口，看到打印出来的<code>hello tunan</code>。</p>
+<p>分析下上面的代码</p>
+<h3 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h3><p>第一句，匹配路由和处理函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.HandleFunc(&quot;&#x2F;&quot;, myWeb)</span><br></pre></td></tr></table></figure>
 
+<p>调用http包的HandleFunc方法，匹配一个路由到一个处理函数<code>myWeb</code>。</p>
+<p>这句代码的意思是，当通过访问地址 <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a> 时，就等同于调用了 myWeb 函数。</p>
+<p>第二句，用fmt在控制台打印一句话，纯属提示，其实并没有太大的实际意义。</p>
+<p>第三句，开启服务并且监听端口</p>
+<p>在这句，调用了<code>http</code>包中的<code>ListenAndServe</code>函数，该函数有两个参数，第一个是指定监听的端口号，第二个是指定处理请求的handler，通常这个参数填nil，表示使用默认的ServeMux作为handler。</p>
+<p>后面就是正常的错误处理了。</p>
+<h3 id="myweb函数"><a href="#myweb函数" class="headerlink" title="myweb函数"></a>myweb函数</h3><p>在<code>main</code>函数中，用<code>http.HandleFunc</code>将 <code>myWeb</code>与路由<code>/</code>匹配在一起。</p>
+<p><code>HandleFunc</code>函数定义了两个参数<code>w</code>,<code>r</code>，参数类型分别是<code>http.ResponseWriter</code>和<code>*http.Request</code>，<code>w</code>是响应留写入器，<code>r</code>是请求对象的指针。</p>
+<p><strong>响应流写入器 w</strong>: 用来写入http响应数据</p>
+<p><strong>请求对象 * r</strong>: 包含了http请求所有信息，注意，这里使用了指针，在定义参数时用<code>*</code>标记类型，说明这个参数需要的是这个类型的对象的<strong>指针</strong>。</p>
+<p>当有请求路径<code>/</code>，请求对象和响应流写入器被传递给<code>myWeb</code>函数，并由<code>myWeb</code>函数负责处理这次请求。</p>
+<p><strong>函数体</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fmt.Fprintln(w,seeHello())</span><br><span class="line">fmt.Fprintf(w, <span class="string">"hello tunan"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里我们使用的是fmt这个库的Fprintln和Fprintf函数，其实就是前面加了个F，把数据写入到<code>w</code>响应流写入器对象。<code>w</code>响应流写入器里写入的内容最后会被Response输出到用户浏览器的页面上。</p>
+<p>至于那个seeHello函数就没什么好说的了。</p>
+<h2 id="获取http请求参数"><a href="#获取http请求参数" class="headerlink" title="获取http请求参数"></a>获取http请求参数</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myWeb</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    r.ParseForm() <span class="comment">//它还将请求主体解析为表单，获得POST Form表单数据，必须先调用这个函数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> r.URL.Query() &#123;</span><br><span class="line">        fmt.Println(<span class="string">"key:"</span>, k, <span class="string">", value:"</span>, v[<span class="number">0</span>])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> r.PostForm &#123;</span><br><span class="line">        fmt.Println(<span class="string">"key:"</span>, k, <span class="string">", value:"</span>, v[<span class="number">0</span>])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Fprintln(w, <span class="string">"这是一个开始"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tva2.sinaimg.cn/large/007OtlCngy1grb99zyy57j30zp0baq3o.jpg" alt="image-20210605160309420"></p>
+<p><img src="https://tvax3.sinaimg.cn/large/007OtlCngy1grb99k3rvgj30z40bddj3.jpg" alt="image-20210605160341807"></p>
+<p>这里我们看到我们已经在后端获取到了参数和值。</p>
+<h3 id="相关函数解读"><a href="#相关函数解读" class="headerlink" title="相关函数解读"></a>相关函数解读</h3><p><code>http</code>请求的所有内容，都保存在<code>http.Request</code>对象中，也就是<code>myWeb</code>获得的参数 <code>r</code> 。所以我们的请求都需要从这个r开始。</p>
+<p><code>r.ParseForm()</code></p>
+<p>ParseForm解析URL中的查询字符串，并将解析结果更新到r.Form字段。如果是Post或者Put请求ParseForm还会将body当作表单解析，并将结果既更新到r.PostForm也更新到r.Form。</p>
+<p><code>r.URL.Query()</code> 和 <code>r.PostForm</code></p>
+<p>这两个分别是URL参数对象和表单参数对象，它们都是键值对值，键的类型是字符串<code>string</code>，值的类型是<code>string</code>数组。</p>
+<p>这样我们就实现了最简单的交互。</p>
+<h2 id="动态响应数据"><a href="#动态响应数据" class="headerlink" title="动态响应数据"></a>动态响应数据</h2><p>读取HTML模版文件，用数据替换掉对应的标签，生成完整的HTML字符串，响应给浏览器，这是所有Web开发框架的常规操作。那么golang的这个功能是什么呢</p>
+<p><code>html/template</code></p>
+<p>这个包就是实现这个功能的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">myWeb</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;	</span><br><span class="line">	t, _ := template.ParseFiles(<span class="string">"./index.html"</span>)</span><br><span class="line"></span><br><span class="line">	data := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"name"</span>:    <span class="string">"zeta"</span>,</span><br><span class="line">		<span class="string">"age"</span>: <span class="string">"18"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t.Execute(w, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">index.html</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello &#123;&#123;.name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123;.age&#125;&#125;岁<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tvax2.sinaimg.cn/large/007OtlCngy1grb9910zwaj30gm04ma9u.jpg" alt="image-20210605164032043"></p>
+<p>比较硬核，没办法</p>
+<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><p><code>template.ParseFiles</code></p>
+<p>ParseFiles函数创建一个模板并解析filenames指定的文件里的模板定义。返回的模板的名字是第一个文件的文件名（不含扩展名），内容为解析后的第一个文件的内容。</p>
+<p><code>Execute</code></p>
+<p>Execute方法将解析好的模板应用到data上，并将输出写入w。如果执行时出现错误，会停止执行，但有可能已经写入wr部分数据。模板可以安全的并发执行。</p>
+<p>参考</p>
+<p><a href="https://segmentfault.com/a/1190000019151901" target="_blank" rel="noopener">https://segmentfault.com/a/1190000019151901</a></p>
+<p><a href="https://studygolang.com/pkgdoc" target="_blank" rel="noopener">https://studygolang.com/pkgdoc</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/06/08/Golang-Web/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/06/01/Java%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2021-06-01T10:27:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/06/01/Java%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java序列化与反序列化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/06/01/Java%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">Java序列化与反序列化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hello-world"><span class="toc-number">1.</span> <span class="toc-text">hello world</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#main函数"><span class="toc-number">1.1.</span> <span class="toc-text">main函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#myweb函数"><span class="toc-number">1.2.</span> <span class="toc-text">myweb函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取http请求参数"><span class="toc-number">2.</span> <span class="toc-text">获取http请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关函数解读"><span class="toc-number">2.1.</span> <span class="toc-text">相关函数解读</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态响应数据"><span class="toc-number">3.</span> <span class="toc-text">动态响应数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关函数"><span class="toc-number">3.1.</span> <span class="toc-text">相关函数</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/21/%E8%9A%81%E5%89%91%E6%94%B9%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-04-21T03:33:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-21</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/21/%E8%9A%81%E5%89%91%E6%94%B9%E9%80%A0/">蚁剑改造</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/17/Webshell-%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2021-04-17T06:51:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/17/Webshell-%E5%85%8D%E6%9D%80/">Webshell 免杀</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/04/10/Java-RMI%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2021-04-10T07:16:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/10/Java-RMI%E5%9F%BA%E7%A1%80/">Java RMI基础</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/" class="archive-article-date">
-  	<time datetime="2021-03-23T17:50:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/24/Java%E5%AE%89%E5%85%A8%E4%B9%8B%E5%8F%8D%E5%B0%84/">Java安全之反射</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/22/Java%E5%8F%8D%E5%B0%84%E5%88%9D%E8%AF%86/" class="archive-article-date">
-  	<time datetime="2021-03-21T17:33:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/22/Java%E5%8F%8D%E5%B0%84%E5%88%9D%E8%AF%86/">Java反射初识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/13/Linux%E6%8F%90%E6%9D%83%E7%BB%AD/" class="archive-article-date">
-  	<time datetime="2021-03-13T08:21:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/13/Linux%E6%8F%90%E6%9D%83%E7%BB%AD/">Linux提权续</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/07/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2021-03-07T10:40:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/07/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">Java类加载机制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/02/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-03-02T14:21:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/02/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">Java基础学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2021/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -455,8 +388,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
