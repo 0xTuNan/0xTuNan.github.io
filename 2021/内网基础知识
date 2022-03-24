@@ -1,1 +1,509 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>内网基础知识</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
 
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+
+</style>
+</head>
+<body class='typora-export os-windows' >
+<div  id='write'  class = 'is-node'><p><span>内网基础知识</span></p><h2><a name="什么是内网" class="md-header-anchor"></a><span>什么是内网</span></h2><p><span>局域网，又叫内网是某一区域内由多台计算机互联成的计算机组。一般是方圆几千米以内。局域网可以实现文件管理、应用软件共享、打印机共享、工作组内的日程安排、电子邮件和传真通信服务等功能。局域网是封闭型的，可以由办公室内的两台计算机组成，也可以由一个公司内的上千台计算机组成。</span></p><p><span>举个例子</span></p><p><span>比如我们家里拉个一个网线，我们一般是使用路由器，之后我们的电脑，手机这些设备都连接这个wifi，此时我们的这些设备都处于一个局域网中，可以查看</span><code>ipconfig</code><span>，此时我们的ip的前三个网段都是一样的，只有最后的不同，但是此时这些设备去访问外网（浏览器等），那么这些设备的ip又都是一样的。</span></p><h2><a name="工作组" class="md-header-anchor"></a><span>工作组</span></h2><p><span>工作组就是在一个局域网中，具有相似功能的电脑的集合</span></p><p><span>当我们的局域网中电脑比较多的时候，如果不进行分组那么都会罗列在网上邻居上，早在Windows 9x/NT/2008就引用了“工作组”这个概念，将不同的电脑一般按功能分别列入不同的组中。要访问某个部门的资源，就在“网上邻居”里找到那个部门的工作组名，双击就可以看到那个部门的电脑了。</span></p><p><span>怎么加入工作组呢？其实很简单，你只需要右击你的Windows桌面上的“网上邻居”，在弹出的菜单出选择“属性”，点击“标识”，在“计算机名”一栏中添入你想好的名字，在“工作组”一栏中添入你想加入的工作组名称。</span></p><p><span>你也可以退出某个工作组，只要将工作组名称改动即可。不过这样在网上别人照样可以访问你的共享资源，只不过换了一个工作组而已。你可以随便加入同一网络上的任何工作组，也可以离开一个工作组。</span></p><p><span>所以这也就是说不在同一个工作组中的计算机也可以互相访问，当两台计算机所在工作组是同一个时，进入网上邻居选“工作组计算机”就可以看到对方，而不在一个工作组的话则需要进入网上邻居选择“整个网络-&gt;Microsoft Windows网络”，这时才可以看到局域网中其他工作组了，进入相应的工作组后通过双击鼠标实现访问他们的目的。</span></p><p><span>工作组的优点是可以对内网的电脑进行合理的分类，缺点是缺乏集中管理与控制的机制，没有集中的统一帐户管理，没有实施工作站的有效配置和安全性严密控制。</span></p><h2><a name="域" class="md-header-anchor"></a><span>域</span></h2><p><span>域是一个局域网中相互信任的计算机的集合</span></p><p><span>“域”是一个相对严格的组织。在“域”模式下，至少有一台服务器负责每一台联入网络的电脑和用户的验证工作，相当于一个单位的门卫一样。这台服务器称为“域控制器（Domain Controller，简写为DC）”。“域控制器”中包含了整个域的账户，密码以及属于这个域的计算机等信息的资料。当电脑联入网络时，域控制器首先要鉴别这台电脑是否是属于这个域的，用户使用的登录账号是否存在，密码是否正确。如果以上信息不正确，域控制器就拒绝这个用户从这台电脑登录，用户就不能访问服务器上有权限保护的资源了，只能以对等网用户的方式访问Windows共享出来的资源。</span></p><p><span>想把一台电脑加入域，必须要由网络管理员进行把这台电脑加入域的相关操作。</span></p><h2><a name="活动目录" class="md-header-anchor"></a><span>活动目录</span></h2><p><span>活动目录(Active Directory)简称AD。</span></p><p><span>它基于DNS，以树状结构存储了一个域内有关网络对象(例如用户、用户组、计算机、域、安全策略等等)的信息，其中包含所有域用户和计算机帐户的密码哈希值。</span></p><p><span>活动目录主要提供</span></p><ul><li><span>基础网络服务(DNS/DHCP等)</span></li><li><span>计算机管理</span></li><li><span>用户服务</span></li><li><span>资源管理</span></li><li><span>桌面配置等。</span></li></ul><h2><a name="域与工作组" class="md-header-anchor"></a><span>域与工作组</span></h2><p><strong><span>工作组</span></strong><span>适合小型的的网络，内部较为松散，计算机角色是对等的，资源和管理分散在各个计算机上，如果需要使用计算机还是需要登录各自的账户；</span><strong><span>域</span></strong><span>适用于较大型的网络，内部的计算机都相互信任，如果用户账户有对资源的适当权限，使用账户都能登录域内的任一台计算机，都可以访问网络上另一计算机的资源。</span></p><h2><a name="kerberos协议" class="md-header-anchor"></a><span>Kerberos协议</span></h2><p><span>Kerberos是一个常用的认证与授权协议，</span><strong><span>用于安全认证域环境</span></strong></p><p><span>Kerberos协议中主要由三个角色：</span></p><ul><li><span>访问服务的client</span></li><li><span>提供服务的server</span></li><li><span>KDC(Key Distribution Center)密钥分发中心</span></li></ul><p><span>其中KDC服务默认会安装在一个域的域控中,client即是域内的用户，server是域内的服务，例如远程桌面服务，邮箱服务，HTTP服务等。</span></p><h3><a name="参与的关键角色" class="md-header-anchor"></a><span>参与的关键角色</span></h3><p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1h0lcw8z65qj30id0ban03.jpg" referrerpolicy="no-referrer" alt="image-20220314194105607"></p><ul><li><strong><span>Client</span></strong><span>: Application Client 应用客户端，即用户</span></li><li><strong><span>AS</span></strong><span>: Authentication Server 用来认证用户身份，由DC提供</span></li><li><strong><span>TGS</span></strong><span>: Ticket-Granting Service 用来授权服务访问，由DC提供</span></li><li><strong><span>SS</span></strong><span>: Service Server 用户所请求的服务，即相应的服务器</span></li></ul><h3><a name="用户登录" class="md-header-anchor"></a><span>用户登录</span></h3><p><img src="https://tva2.sinaimg.cn/large/007OtlCnly1h0lcwxpj5mj30l707aq4q.jpg" referrerpolicy="no-referrer" alt="image-20220314194313914"></p><p><span>由用户输入账号和密码，之后密码会被hash函数加密，作为密钥来解密之后的信息</span></p><h3><a name="请求身份认证" class="md-header-anchor"></a><span>请求身份认证</span></h3><h4><a name="客户端向as发送认证请求" class="md-header-anchor"></a><span>客户端向AS发送认证请求</span></h4><p><span>client和server都需要让对方相信自己是真实的，不是伪造的</span></p><p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1h0lcx46i1hj30dp04cgmp.jpg" referrerpolicy="no-referrer" alt="image-20220314210359611"></p><p><span>客户端向as发送用户名信息（明文）</span></p><h4><a name="as确认客户端身份" class="md-header-anchor"></a><span>AS确认客户端身份</span></h4><p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1h0lcxaclsgj30k8094acf.jpg" referrerpolicy="no-referrer" alt="image-20220314210755009"></p><p><span>AS是位于DC（域控）上</span></p><ol start='' ><li><p><span>AS收到用户认证请求之后，根据请求中的</span><strong><span>[用户名]</span></strong><span>信息，从数据库中查找该用户名是否存在。</span></p></li><li><p><span>利用客户端的用户名信息查找对应的密码，AS利用相同的单向Hash函数为[密码]生成一个秘钥。</span></p></li><li><p><span>AS回应两个信息</span><strong><span>Msg A</span></strong><span> ，</span><strong><span>Mas B</span></strong></p><p><strong><span>Msg A</span></strong></p><p><span>内容是一个被Client密钥加密的用于生成Authenticator1的数据</span></p><p><strong><span>Msg B</span></strong></p><p><span>内容是使用</span><strong><span>[TGS密钥]</span></strong><span>加密的</span><strong><span>TGT(Ticket-Granting-Ticket)</span></strong><span>，这个client没有TGS密钥，所以这个里面的信息client是解不开的，它的里面包含了</span><strong><span>[Client/TGS SessionKey]</span></strong><span> ，</span><strong><span>Client ID</span></strong><span>，</span><strong><span>Ticket有效时间</span></strong><span>，</span><strong><span>Client网络地址</span></strong><span>，以及</span><strong><span>Msg A解密之后的信息</span></strong></p></li></ol><h3><a name="请求服务授权" class="md-header-anchor"></a><span>请求服务授权</span></h3><h4><a name="客户端向tgs发送请求服务授权请求" class="md-header-anchor"></a><span>客户端向TGS发送请求服务授权请求</span></h4><p><span>TGS 也在域控上</span></p><p><img src="https://tvax1.sinaimg.cn/large/007OtlCnly1h0lcz470usj30le07rtbt.jpg" referrerpolicy="no-referrer" alt="image-20220315190207017"></p><p><strong><span>Msg C</span></strong><span>里面是需要请求的</span><strong><span>server id</span></strong><span>和上一步中那个不能由client解密的</span><strong><span>TGT</span></strong></p><p><strong><span>Msg D</span></strong><span>里面是使用</span><strong><span>[Client/TGS SessionKey]</span></strong><span>加密的Authenticator 1 {Client ID, Timestamp}。</span></p><p>&nbsp;</p><h4><a name="tgs为client响应服务授权票据" class="md-header-anchor"></a><span>TGS为Client响应服务授权票据</span></h4><p><img src="https://tva4.sinaimg.cn/large/007OtlCnly1h0lczbpo69j30o90az78m.jpg" referrerpolicy="no-referrer" alt="image-20220315190522941"></p><p>&nbsp;</p><p><strong><span>Msg E</span></strong><span> </span></p><p><span>使用</span><strong><span>[Service密钥]</span></strong><span>加密的Client-To-Server Ticket里面有</span><strong><span>[Client/Server SessionKey]</span></strong><span>，</span><strong><span>Client ID</span></strong><span>，</span><strong><span>Client网络地址</span></strong><span>，</span><strong><span>Ticket有效时间</span></strong><span> 因为是使用</span><strong><span>[Service密钥]</span></strong><span>加密的，所以这里面的信息对于client是看不到的。</span></p><p><strong><span>Msg F</span></strong></p><p><span>使用</span><strong><span>[Client/TGS SessionKey]</span></strong><span>加密的</span><strong><span>[Client/Server SessionKey]</span></strong><span>。  这东西client是可见的，</span><strong><span>[Client/TGS SessionKey]</span></strong><span>可以通过client的密钥解密得到，所以</span><strong><span>[Client/Server SessionKey]</span></strong><span>也可以得到</span></p><h3><a name="发送服务请求" class="md-header-anchor"></a><span>发送服务请求</span></h3><h4><a name="client向ssservice-server发送服务请求" class="md-header-anchor"></a><span>Client向SS(Service Server)发送服务请求</span></h4><p><img src="https://tva3.sinaimg.cn/large/007OtlCnly1h0lczktswyj30ly0alae9.jpg" referrerpolicy="no-referrer" alt="image-20220315194727363"></p><p><strong><span>Msg E</span></strong></p><p><span>就是之前TGS给client的那个Msg E</span></p><p><strong><span>Msg G</span></strong><span> </span></p><p><span>由</span><strong><span>[Client/Server SessionKey]</span></strong><span>加密的</span><strong><span>Authenticator 2</span></strong><span>，包含{Client ID, Timestamp}信息。</span></p><h4><a name="ss响应client" class="md-header-anchor"></a><span>SS响应Client</span></h4><p><img src="https://tvax4.sinaimg.cn/large/007OtlCnly1h0lczsyk3xj30ki05omyy.jpg" referrerpolicy="no-referrer" alt="image-20220315194740001"></p><p><span>SS收到了</span><strong><span>Msg E</span></strong><span>，使用</span><strong><span>[Service密钥]</span></strong><span>解密得到</span><strong><span>Client-To-Server Ticket</span></strong><span>，得到了client的相关信息解密</span><strong><span>Msg E</span></strong><span>之后用其中的</span><strong><span>[Client/Server SessionKey]</span></strong><span>解密Msg G，提取Client ID信息，而后将该Client ID与</span><strong><span>Client-To-Server Ticket</span></strong><span>中的Client ID进行比对，如果正确则证明client有正确的</span><strong><span>[Client/Server SessionKey]</span></strong><span>。</span></p><p><span>之后ss回应client </span><strong><span>Msg H</span></strong></p><p><strong><span>Msg H</span></strong></p><p><span>使用</span><strong><span>[Client/Server SessionKey]</span></strong><span>加密的</span><strong><span>Timestamp</span></strong><span>信息，</span><strong><span>Timestamp</span></strong><span>就是之前</span><strong><span>Authenticator 2</span></strong><span>中包含的数据。</span></p><h2><a name="ntlm协议" class="md-header-anchor"></a><span>NTLM协议</span></h2><p><img src="https://tva4.sinaimg.cn/large/007OtlCnly1h0ld00k93aj30lg09kaeq.jpg" referrerpolicy="no-referrer" alt="image-20220319001224233"></p><p><span>上面介绍了Kerberos协议，主要应用于域中认证，而工作组和本地的认证方式大多都使用NTLM协议，但是Windows NT早期版本的标准安全协议也是NTLM。</span></p><h3><a name="本地认证" class="md-header-anchor"></a><span>本地认证</span></h3><p><span>在 Windows 中是不会保存明文密码的，只会保存密码的哈希值，事实上，任何的明文密码都不应该被保存，本机用户的密码哈希是放在 本地的 SAM 文件 里面，这个文件的位置位于</span><code>C:\WINDOWS\repair\SAM</code><span>或者</span><code>C:\WINDOWS\system32\config\SAM</code><span>中，当用户输入密码进行本地认证的过程中，用户输入的密码将为被转化为 NTLM Hash，然后与SAM中的NTLM Hash进行比较，如果正确就可以登录，不正确就禁止登录，所以我们如果忘记了密码的话，可以进入纯dos界面删除这个文件就可以了。</span></p><h3><a name="网络认证" class="md-header-anchor"></a><span>网络认证</span></h3><p><span>NTLM 在网络环境中的认证采用的是一种 Challenge/Response 验证机制</span></p><p><img src="https://tva1.sinaimg.cn/large/007OtlCnly1h0ld05zsakj30hq0abgn4.jpg" referrerpolicy="no-referrer" alt="image-20220319001857284"></p><ul><li><p><span>客户端向服务器发送请求以获得服务器的资源</span></p></li><li><p><span>服务器由于开启了NTLM认证，所以返回401的错误码(未授权)，提示需要NTLM认证</span></p></li><li><p><span>客户端发起NTLM认证，向服务器发送协商消息</span></p></li><li><p><span>服务器收到消息后，生成一个随机数Challenge，明文发送回客户端</span></p></li><li><p><span>客户端接收到Challenge后，使用密码hash对Challenge加密，生成Response并发送给服务器</span></p><p>&nbsp;</p></li><li><p><span>服务器接收到Response后，用自己数据库中该用户的密码加密chanllage，并比较自己计算出的 ，若相同则认证成功。</span><strong><span>(客户端服务端模型)</span></strong></p><p>&nbsp;</p></li><li><p><span>服务器接收到Response后，会向DC(Domain Controller)发送针对客户端的验证请求，该请求主要包含以下三方面的内容：客户端用户名，客户端密码哈希值加密的Challenge和原始的Challenge</span></p></li><li><p><span>DC根据用户名获取该帐号的密码哈希值，对原始的Challenge进行加密。如果加密后的Challenge和服务器发送的一致，则意味着用户拥有正确的密码，验证通过，否则验证失败。DC将验证结果发给服务器，并最终反馈给客户端</span><strong><span>（域内模型）</span></strong></p></li></ul><p>&nbsp;</p><p><span>参考</span></p><p><a href='http://www.nosqlnotes.com/technotes/kerberos-protocol/' target='_blank' class='url'>http://www.nosqlnotes.com/technotes/kerberos-protocol/</a></p><p><a href='https://www.const27.com/2021/06/28/Windows%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%E6%A6%82%E8%A7%88/' target='_blank' class='url'>https://www.const27.com/2021/06/28/Windows%E5%86%85%E7%BD%91%E5%9F%BA%E7%A1%80%E6%A6%82%E8%A7%88/</a></p><p><a href='https://blog.csdn.net/wxh0000mm/article/details/105996397' target='_blank' class='url'>https://blog.csdn.net/wxh0000mm/article/details/105996397</a></p><p><a href='https://juejin.cn/post/6952793401460949029#heading-3' target='_blank' class='url'>https://juejin.cn/post/6952793401460949029#heading-3</a></p><p><a href='https://www.jianshu.com/p/df4cb1219e41' target='_blank' class='url'>https://www.jianshu.com/p/df4cb1219e41</a></p></div>
+</body>
+</html>
